@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
-import { NbCardModule, NbAccordionModule, NbIconModule, NbButtonModule, NbInputModule} from '@nebular/theme';
+import { NbCardModule, NbAccordionModule, NbIconModule, NbButtonModule, NbInputModule, NbListModule, NbSelectModule, NbCheckboxModule} from '@nebular/theme';
 
 import { ThemeModule } from '../../@theme/theme.module';
 import { BagComponent } from './bag.component';
+import { BagItemComponent } from './bag-item/bag-item.component';
 
 @NgModule({
   imports: [
@@ -11,10 +12,14 @@ import { BagComponent } from './bag.component';
     NbAccordionModule,
     NbIconModule,
     NbButtonModule,
-    NbInputModule
+    NbInputModule,    
+    NbCheckboxModule,
+    NbListModule,
+    NbSelectModule
   ],
   declarations: [
-    BagComponent,
+    BagComponent,    
+    BagItemComponent
   ],
 })
 export class BagModule { }

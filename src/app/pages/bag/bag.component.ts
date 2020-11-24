@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Bag } from './bag';
+import { Filter, BagService } from './bag.service';
 
 @Component({
   selector: 'ngx-bag',
@@ -7,9 +10,39 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BagComponent implements OnInit {
 
-  constructor() { }
+  
+  items$: Observable<Bag[]>;
+  itemsNumber$: Observable<number>;
 
-  ngOnInit(): void {
+  constructor(private bagService: BagService) {
+    this.items$ = this.bagService.filteredItems();
+    this.itemsNumber$ = this.bagService.filteredItemsNumber();
+  }
+
+  ngOnInit(){
+    
+  }
+
+  changeFilter(filterValue: Filter) {
+    this.bagService.setFilter(filterValue);
+  }
+
+  onAdd(message: string) {
+    if (message.trim()) {
+      this.bagService.add({ message, completed: false });
+    }
+  }
+
+  onSave([item, message]: [Bag, string]) {
+    this.bagService.updateMessage(item, message);
+  }
+
+  onToggleCompleted([item, completed]: [Bag, boolean]) {
+    this.bagService.toggleCompleted(item, completed);
+  }
+
+  onDelete(item) {
+    this.bagService.delete(item);
   }
 
 }
