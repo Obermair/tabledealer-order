@@ -35,8 +35,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
       name: 'Corporate',
     },
     {
-      value: 'custom_theme',
-      name: 'Cust',
+      value: 'origin',
+      name: 'Origin',
     },
   ];
 
