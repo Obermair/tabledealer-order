@@ -13,6 +13,11 @@
     width: calc(#{nb-theme(sidebar-width)} - #{nb-theme(header-padding)});
   }
 
+  .logo {
+    font-family: nb-theme(text-heading-1-font-family);
+    font-weight:900;
+  }
+
   nb-action {
     height: auto;
     display: flex;

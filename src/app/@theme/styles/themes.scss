@@ -3,6 +3,8 @@
 // @nebular out of the box themes
 @import '~@nebular/theme/styles/themes';
 
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
 $nb-themes: nb-register-theme((
   layout-padding-top: 2.25rem,
 
@@ -22,6 +24,10 @@ $nb-themes: nb-register-theme((
   slide-out-background: #f7f9fc,
   slide-out-shadow-color: 0 4px 14px 0 #8f9bb3,
   slide-out-shadow-color-rtl: 0 4px 14px 0 #8f9bb3,
+
+  text-heading-1-font-family: unquote('Montserrat, sans-serif'),
+ 
+
 ), default, default);
 
 $nb-themes: nb-register-theme((
@@ -86,3 +92,84 @@ $nb-themes: nb-register-theme((
   slide-out-shadow-color: 0 4px 14px 0 #8f9bb3,
   slide-out-shadow-color-rtl: 0 4px 14px 0 #8f9bb3,
 ), dark, dark);
+
+
+$nb-themes: nb-register-theme((
+
+  color-primary-100: #D3F2F7,
+  color-primary-200: #A9E1F0,
+  color-primary-300: #76BAD3,
+  color-primary-400: #4B89A7,
+  color-primary-500: #1D4E6D,
+  color-primary-600: #153D5D,
+  color-primary-700: #0E2E4E,
+  color-primary-800: #09203F,
+  color-primary-900: #051734,
+  color-primary-transparent-100: rgba(29, 78, 109, 0.08),
+  color-primary-transparent-200: rgba(29, 78, 109, 0.16),
+  color-primary-transparent-300: rgba(29, 78, 109, 0.24),
+  color-primary-transparent-400: rgba(29, 78, 109, 0.32),
+  color-primary-transparent-500: rgba(29, 78, 109, 0.4),
+  color-primary-transparent-600: rgba(29, 78, 109, 0.48),
+  color-success-100: #E2F9CE,
+  color-success-200: #C0F3A0,
+  color-success-300: #8EDD6C,
+  color-success-400: #5EBB43,
+  color-success-500: #278E15,
+  color-success-600: #167A0F,
+  color-success-700: #0A660B,
+  color-success-800: #06520D,
+  color-success-900: #04440E,
+  color-success-transparent-100: rgba(39, 142, 21, 0.08),
+  color-success-transparent-200: rgba(39, 142, 21, 0.16),
+  color-success-transparent-300: rgba(39, 142, 21, 0.24),
+  color-success-transparent-400: rgba(39, 142, 21, 0.32),
+  color-success-transparent-500: rgba(39, 142, 21, 0.4),
+  color-success-transparent-600: rgba(39, 142, 21, 0.48),
+  color-info-100: #CAFBFB,
+  color-info-200: #97F1F8,
+  color-info-300: #61D8EA,
+  color-info-400: #39B6D5,
+  color-info-500: #0589BA,
+  color-info-600: #036A9F,
+  color-info-700: #025085,
+  color-info-800: #01396B,
+  color-info-900: #002859,
+  color-info-transparent-100: rgba(5, 137, 186, 0.08),
+  color-info-transparent-200: rgba(5, 137, 186, 0.16),
+  color-info-transparent-300: rgba(5, 137, 186, 0.24),
+  color-info-transparent-400: rgba(5, 137, 186, 0.32),
+  color-info-transparent-500: rgba(5, 137, 186, 0.4),
+  color-info-transparent-600: rgba(5, 137, 186, 0.48),
+  color-warning-100: #FDF6CA,
+  color-warning-200: #FCEB97,
+  color-warning-300: #F6DA62,
+  color-warning-400: #EDC83B,
+  color-warning-500: #E2AD00,
+  color-warning-600: #C29000,
+  color-warning-700: #A27400,
+  color-warning-800: #835A00,
+  color-warning-900: #6C4800,
+  color-warning-transparent-100: rgba(226, 173, 0, 0.08),
+  color-warning-transparent-200: rgba(226, 173, 0, 0.16),
+  color-warning-transparent-300: rgba(226, 173, 0, 0.24),
+  color-warning-transparent-400: rgba(226, 173, 0, 0.32),
+  color-warning-transparent-500: rgba(226, 173, 0, 0.4),
+  color-warning-transparent-600: rgba(226, 173, 0, 0.48),
+  color-danger-100: #FCE5CE,
+  color-danger-200: #F9C69F,
+  color-danger-300: #ED9B6C,
+  color-danger-400: #DC7247,
+  color-danger-500: #C63A13,
+  color-danger-600: #AA240D,
+  color-danger-700: #8E1309,
+  color-danger-800: #720606,
+  color-danger-900: #5F030A,
+  color-danger-transparent-100: rgba(198, 58, 19, 0.08),
+  color-danger-transparent-200: rgba(198, 58, 19, 0.16),
+  color-danger-transparent-300: rgba(198, 58, 19, 0.24),
+  color-danger-transparent-400: rgba(198, 58, 19, 0.32),
+  color-danger-transparent-500: rgba(198, 58, 19, 0.4),
+  color-danger-transparent-600: rgba(198, 58, 19, 0.48)
+
+), custom-theme, default);
