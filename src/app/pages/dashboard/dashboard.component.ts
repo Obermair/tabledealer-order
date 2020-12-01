@@ -2,7 +2,7 @@ import { Component, OnDestroy } from "@angular/core";
 import { NbThemeService } from "@nebular/theme";
 import { takeWhile } from 'rxjs/operators' ;
 import { timingSafeEqual } from "crypto";
-import { HttpService } from '../services/http.service';
+import { HttpService } from "../../@core/mock/http.service";
 
 interface CardSettings {
   title: string;
