@@ -4,6 +4,8 @@ import { NbCardModule, NbIconModule } from '@nebular/theme';
 import { ThemeModule } from '../../@theme/theme.module';
 import { DashboardComponent } from './dashboard.component';
 
+import { StatusCardComponent } from './status-card/status-card.component';
+
 
 @NgModule({
   imports: [
@@ -13,6 +15,7 @@ import { DashboardComponent } from './dashboard.component';
   ],
   declarations: [
     DashboardComponent,
+    StatusCardComponent,
   ],
 })
 export class DashboardModule { 

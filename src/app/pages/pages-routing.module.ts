@@ -6,6 +6,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ECommerceComponent } from './e-commerce/e-commerce.component';
 import { NotFoundComponent } from './miscellaneous/not-found/not-found.component';
 import { BagComponent } from './bag/bag.component';
+import { HelpComponent } from './help/help.component'
 
 const routes: Routes = [{
   path: '',
@@ -20,8 +21,8 @@ const routes: Routes = [{
       component: BagComponent,
     },
     {
-      path: 'iot-dashboard',
-      component: DashboardComponent,
+      path: 'help',
+      component: HelpComponent,
     },
     {
       path: 'layout',

@@ -34,7 +34,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
   {
     title: 'Hilfe und FAQ',
     icon: 'question-mark-outline',
-    link: '/pages/dashboard',
+    link: '/pages/help',
     home: true,
   },/*
   {
