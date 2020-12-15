@@ -5,6 +5,7 @@ import { HttpClient } from "@angular/common/http";
 import { DataService } from "./data.service";
 import { Artikel } from "../data/article";
 import { Veranstalter } from "../data/organizer";
+import { Bestellung } from "../data/bestellung";
 
 @Injectable({
   providedIn: "root",
@@ -23,6 +24,15 @@ export class HttpService {
 
   getArtikelList(): Observable<Artikel[]> {
     return this.http.get<Artikel[]>(this.SERVER_URL + 'artikel/byVeranstalter/' + this.data.veranstalter.id);
+  }
+  
+
+  createBestellung(bestellung : any) {
+    return this.http.post<any>(this.SERVER_URL + 'bestellung/' , bestellung);
+  }
+
+  printBestellung(bestellung : any) {
+    return this.http.get<any[]>(this.SERVER_URL + 'bestellung/print/{id}' + bestellung);
   }
 
 /*
