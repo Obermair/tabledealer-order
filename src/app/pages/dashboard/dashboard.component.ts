@@ -3,7 +3,7 @@ import { NbThemeService } from "@nebular/theme";
 import { takeWhile } from 'rxjs/operators' ;
 import { timingSafeEqual } from "crypto";
 import { HttpService } from "../../@core/mock/http.service";
-
+import { NbToastrService, NbComponentStatus } from '@nebular/theme';
 interface CardSettings {
   title: string;
   desc: string;
@@ -25,7 +25,7 @@ export class DashboardComponent implements OnDestroy {
   lightCard: CardSettings = {
     title: 'Hamburger',
     desc: 'mit Pommes',
-    iconClass: 'hamburger',
+    iconClass: '',
     type: 'primary',
   };
   rollerShadesCard: CardSettings = {
@@ -87,7 +87,7 @@ export class DashboardComponent implements OnDestroy {
     origin: this.commonStatusCardsSet,
   };
 
-  constructor(private themeService: NbThemeService, private http: HttpService
+  constructor(private toastrService: NbToastrService, private themeService: NbThemeService, private http: HttpService
               ) {
     this.themeService.getJsTheme()
       .pipe(takeWhile(() => this.alive))
@@ -100,4 +100,14 @@ export class DashboardComponent implements OnDestroy {
   ngOnDestroy() {
     this.alive = false;
   }
+
+  addArticle(){
+    console.log("Seas");
+    this.showToast('success');
+  }
+
+  showToast(status) {
+    this.toastrService.show('', `Artikel hinzugefügt`, { status });
+  }
+
 }

@@ -7,7 +7,7 @@ import { Component, Input } from '@angular/core';
     <nb-card (click)="on = !on" [ngClass]="{'off': !on}">
       <div class="icon-container">
         <div class="icon status-{{ type }}">
-        <nb-icon icon="hamburger" pack="fa"></nb-icon>
+        <nb-icon icon=""></nb-icon>
         </div>
       </div>
 
