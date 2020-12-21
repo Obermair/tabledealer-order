@@ -144,17 +144,6 @@
               }
             ]
           }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "src/tsconfig.app.json",
-              "src/tsconfig.spec.json"
-            ],
-            "typeCheck": true,
-            "exclude": []
-          }
         }
       }
     },
@@ -191,5 +180,8 @@
     "@schematics/angular:directive": {
       "prefix": "ngx"
     }
+  },
+  "cli": {
+    "analytics": "f395c305-a3db-4e81-a931-6e9e27d87647"
   }
 }

@@ -4,6 +4,7 @@ import { takeWhile } from 'rxjs/operators' ;
 import { timingSafeEqual } from "crypto";
 import { HttpService } from "../../@core/mock/http.service";
 import { NbToastrService, NbComponentStatus } from '@nebular/theme';
+import { DataService } from "app/@core/mock/data.service";
 interface CardSettings {
   title: string;
   desc: string;
@@ -87,18 +88,30 @@ export class DashboardComponent implements OnDestroy {
     origin: this.commonStatusCardsSet,
   };
 
-  constructor(private toastrService: NbToastrService, private themeService: NbThemeService, private http: HttpService
-              ) {
+  constructor(private toastrService: NbToastrService, private themeService: NbThemeService, private http: HttpService, 
+    private data: DataService) {
     this.themeService.getJsTheme()
       .pipe(takeWhile(() => this.alive))
       .subscribe(theme => {
         this.statusCards = this.statusCardsByThemes[theme.name];
     });
-    
   }
 
   ngOnDestroy() {
     this.alive = false;
+  }
+
+  printSampleBestellung(){
+    this.http.printBestellung(1);
+  }
+
+  authenticate(){
+    this.http.getToken(this.data.currentKellner).subscribe({
+      complete: () => { 
+
+       }, 
+  });
+  
   }
 
   addArticle(){
@@ -109,5 +122,4 @@ export class DashboardComponent implements OnDestroy {
   showToast(status) {
     this.toastrService.show('', `Artikel hinzugefügt`, { status });
   }
-
 }

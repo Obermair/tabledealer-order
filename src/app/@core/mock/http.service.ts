@@ -1,53 +1,44 @@
 import { Injectable } from "@angular/core";
 
 import { Observable } from "rxjs";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { DataService } from "./data.service";
 import { Artikel } from "../data/article";
-import { Veranstalter } from "../data/organizer";
+import { Kellner, Veranstalter, Bestellung } from "../data/organizer";
 
 @Injectable({
   providedIn: "root",
 })
 export class HttpService {
 
-  SERVER_URL = "http://localhost:8080/api/";
+  SERVER_URL = "https://api.o-zapft.at";
+  token;
+  headers;
+  kellner;
 
-  constructor(public http: HttpClient, public data: DataService) {}
-
-  getCustomer(): Observable<Veranstalter> {
-    return this.http.get<Veranstalter>(
-      this.SERVER_URL + "customer/" + this.data.veranstalter.id
-    );
+  constructor(public http: HttpClient) {
+    this.updateToken();
   }
 
-  getArtikelList(): Observable<Artikel[]> {
-    return this.http.get<Artikel[]>(this.SERVER_URL + 'artikel/byVeranstalter/' + this.data.veranstalter.id);
+  updateToken() {
+    this.token = localStorage.getItem('token');
+    this.headers = new HttpHeaders().set('Authorization', "Bearer " + this.token);
   }
 
-/*
-  updateCustomer(cust: Customer): Observable<Customer> {
-    return this.http.put<Customer>(
-      this.SERVER_URL + "customer/" + this.data.customerid,
-      cust
-    );
+  findKellnerById(id): Observable<Kellner> {
+    return this.http.get<Kellner>(this.SERVER_URL + '/api/kellner/' + id, { headers: this.headers });
   }
 
-  createCustomer(cust: Customer): Observable<Customer> {
-    return this.http.post<Customer>(this.SERVER_URL + "customer", cust);
-  }*/
-
-  /*getReservations(): Observable<Reservation> {
-return this.http.get<Reservation>('reservation/customer' + this.data.customerid);
-}*/
-/*
-  getReservationList(): Observable<Reservation[]> {
-    return this.http.get<Reservation[]>(
-      this.SERVER_URL + "reservation/customer/" + this.data.customerid
-    );
+  findVeranstalterById(id): Observable<Veranstalter> {
+    return this.http.get<Veranstalter>(this.SERVER_URL + '/api/veranstalter/' + id, { headers: this.headers });
   }
 
-  deleteReservation(id): Observable<any> {
-    return this.http.delete(this.SERVER_URL + "reservation/" + id);
-  }*/
+  getToken(kellner: Kellner): Observable<String>{
+    return this.http.post(this.SERVER_URL + '/api/kellner/jwt', kellner, {responseType: 'text'});
+  }
+
+  printBestellung(bestellung): Observable<Bestellung> {
+    return this.http.get<Bestellung>(this.SERVER_URL + '/api/bestellung/print/' + bestellung.id, { headers: this.headers });
+  }
+
 }
