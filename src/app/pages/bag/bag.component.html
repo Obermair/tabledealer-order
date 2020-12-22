@@ -81,3 +81,33 @@
       </nb-card-body>
     </nb-card>
   </div>
+
+  <nb-card size="small">
+    <nb-card-body>
+
+     
+
+
+      <button nbSuffix nbButton (click)="decAmount()">
+        <nb-icon icon="minus-outline"
+                 pack="eva"
+                 [attr.aria-label]="showPassword ? 'hide password' : 'show password'">
+        </nb-icon>
+      </button>
+      <input class="amount" [(ngModel)]="amount" [type]="getInputType()" nbInput>
+        <button nbSuffix nbButton (click)="incAmount()">
+          <nb-icon icon="plus-outline"
+                   pack="eva"
+                   [attr.aria-label]="showPassword ? 'hide password' : 'show password'">
+          </nb-icon>
+        </button>
+        
+        <button nbSuffix nbButton (click)="deleteArticle()">
+          <nb-icon icon="trash-2-outline" pack="eva">
+          </nb-icon>
+        </button>
+
+          
+
+    </nb-card-body>
+  </nb-card> 

@@ -77,4 +77,30 @@ export class BagComponent implements OnInit {
     this.thirdForm.markAsDirty();
   }
 
+  showPassword = true;
+  amount = 0;
+
+  getInputType() {
+    if (this.showPassword) {
+      return 'text';
+    }
+    return 'password';
+  }
+
+  toggleShowPassword() {
+    this.showPassword = !this.showPassword;
+  }
+
+  incAmount(){
+    this.amount += 1;
+  }
+  decAmount(){
+    if(this.amount > 0) {
+      this.amount -= 1;
+    }
+  }
+  deleteArticle(){
+
+  }
+
 }
