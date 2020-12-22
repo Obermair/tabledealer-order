@@ -12,7 +12,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: 'shopping-bag-outline',
     link: '/pages/bag',
     home: true,
-  },
+  }/*,
   {
     title: 'Gespeichert',
     icon: 'heart-outline',
@@ -30,7 +30,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: 'credit-card-outline',
     link: '/pages/dashboard',
     home: true,
-  },
+  }*/,
   {
     title: 'Hilfe und FAQ',
     icon: 'question-mark-outline',

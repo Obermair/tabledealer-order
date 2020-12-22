@@ -5,6 +5,7 @@ import { timingSafeEqual } from "crypto";
 import { HttpService } from "../../@core/mock/http.service";
 import { NbToastrService, NbComponentStatus } from '@nebular/theme';
 import { DataService } from "app/@core/mock/data.service";
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 interface CardSettings {
   title: string;
   desc: string;
@@ -88,13 +89,42 @@ export class DashboardComponent implements OnDestroy {
     origin: this.commonStatusCardsSet,
   };
 
+  firstForm: FormGroup;
+  secondForm: FormGroup;
+  thirdForm: FormGroup;
+
   constructor(private toastrService: NbToastrService, private themeService: NbThemeService, private http: HttpService, 
-    private data: DataService) {
+    private data: DataService,private fb: FormBuilder) {
     this.themeService.getJsTheme()
       .pipe(takeWhile(() => this.alive))
       .subscribe(theme => {
         this.statusCards = this.statusCardsByThemes[theme.name];
     });
+  }
+  ngOnInit() {
+    this.firstForm = this.fb.group({
+      firstCtrl: ['', Validators.required],
+    });
+
+    this.secondForm = this.fb.group({
+      secondCtrl: ['', Validators.required],
+    });
+
+    this.thirdForm = this.fb.group({
+      thirdCtrl: ['', Validators.required],
+    });
+  }
+
+  onFirstSubmit() {
+    this.firstForm.markAsDirty();
+  }
+
+  onSecondSubmit() {
+    this.secondForm.markAsDirty();
+  }
+
+  onThirdSubmit() {
+    this.thirdForm.markAsDirty();
   }
 
   ngOnDestroy() {

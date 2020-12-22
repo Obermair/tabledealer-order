@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
-import { NbCardModule, NbIconModule, NbAlertModule } from '@nebular/theme';
+import { NbCardModule, NbIconModule, NbAlertModule, NbStepperModule } from '@nebular/theme';
 
 import { ThemeModule } from '../../@theme/theme.module';
 import { DashboardComponent } from './dashboard.component';
 
 import { StatusCardComponent } from './status-card/status-card.component';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -12,7 +13,10 @@ import { StatusCardComponent } from './status-card/status-card.component';
     NbCardModule,
     ThemeModule,
     NbIconModule,    
-    NbAlertModule
+    NbAlertModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NbStepperModule
 
   ],
   declarations: [
