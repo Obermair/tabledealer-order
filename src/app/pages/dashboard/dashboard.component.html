@@ -6,8 +6,8 @@
     <nb-card>
       <nb-card-body>
         <nb-stepper #stepper>
-          <nb-step [stepControl]="firstForm" label="Schritt 1">
-            <form [formGroup]="firstForm" (ngSubmit)="onFirstSubmit()" class="step-container">
+          <nb-step label="Schritt 1">
+            <form (ngSubmit)="onFirstSubmit()" class="step-container">
               <div class="row">
                 <div class="col-xxxl-3 col-md-6" *ngFor="let statusCard of statusCards" (click)="addArticle()">
                   <ngx-status-card [title]="statusCard.title" [desc]="statusCard.desc" [type]="statusCard.type">
@@ -44,8 +44,8 @@
               </div>
             </form>
           </nb-step>
-          <nb-step [stepControl]="thirdForm" label="Schritt 3">
-            <form [formGroup]="thirdForm" (ngSubmit)="onThirdSubmit()" class="step-container">
+          <nb-step label="Schritt 3">
+            <form (ngSubmit)="onThirdSubmit()" class="step-container">
               <h3>Bestellübersicht</h3>
               <p class="lorem">
                 Bitte überprüfe deine Bestellung.

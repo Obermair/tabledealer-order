@@ -1,15 +1,25 @@
 import { Injectable } from '@angular/core';
+import { Artikel } from '../models/Artikel';
+import { Kellner } from '../models/kellner';
+import { Veranstalter } from '../models/veranstalter';
+import { HttpService } from './http.service';
 
-import { Artikel } from '../data/article';
-import { Veranstalter, Kellner } from '../data/organizer';
+interface CardSettings {
+  title: string;
+  desc: string;
+  iconClass: string;
+  type: string;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
-
+  public veranstalterId: string = '1';
   public veranstalter: Veranstalter;  
   public arikelList: Array<Artikel>;
+  public commonStatusCardsSet: CardSettings[];
+
   public defaultKellner: Kellner = {
     id: 1,
     email: 'example@mail.com',
@@ -17,5 +27,20 @@ export class DataService {
     passwort: 'passme'
   };
  
-  constructor() { }
+  constructor(private http: HttpService) { }
+
+  setVeranstalter(id){
+    this.http.findVeranstalterById(id).subscribe((data) =>{
+      this.veranstalter = data;
+    })
+  }
+
+  loadArtikelByVeranstalter(){
+    this.http.findArtikelByVeranstalter(this.veranstalterId).subscribe((data) =>{
+      this.arikelList = data;
+    
+    })
+  }
+
+
 }

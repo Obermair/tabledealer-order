@@ -6,6 +6,7 @@ import { HttpService } from "../../@core/utils/http.service";
 import { NbToastrService, NbComponentStatus } from '@nebular/theme';
 import { DataService } from "app/@core/utils/data.service";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { ActivatedRoute, Params } from "@angular/router";
 interface CardSettings {
   title: string;
   desc: string;
@@ -19,7 +20,6 @@ interface CardSettings {
   templateUrl: "./dashboard.component.html",
 })
 export class DashboardComponent implements OnDestroy {
-  
   
   private alive = true;
 
@@ -107,15 +107,23 @@ export class DashboardComponent implements OnDestroy {
   firstForm: FormGroup;
   secondForm: FormGroup;
   thirdForm: FormGroup;
+  veranstalerId="";
 
   constructor(private toastrService: NbToastrService, private themeService: NbThemeService, private http: HttpService, 
-    private data: DataService,private fb: FormBuilder) {
-    this.themeService.getJsTheme()
-      .pipe(takeWhile(() => this.alive))
-      .subscribe(theme => {
-        this.statusCards = this.statusCardsByThemes[theme.name];
-    });
+    private data: DataService,private fb: FormBuilder,private route: ActivatedRoute) {
+    
+      this.themeService.getJsTheme()
+        .pipe(takeWhile(() => this.alive))
+        .subscribe(theme => {
+          this.statusCards = this.statusCardsByThemes[theme.name];
+      });
+
+      this.data.veranstalterId = this.route.snapshot.queryParamMap.get('veranstalter');
+
+      this.data.setVeranstalter(this.data.veranstalterId);
+      this.data.loadArtikelByVeranstalter();
   }
+
   ngOnInit() {
     this.secondForm = this.fb.group({
       secondCtrl: ['', Validators.required],
@@ -142,7 +150,6 @@ export class DashboardComponent implements OnDestroy {
 
   printSampleBestellung(){
     this.http.printBestellung(1).subscribe(data => {
-      console.log(data)
     });
   }
 
