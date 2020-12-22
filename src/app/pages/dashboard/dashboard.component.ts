@@ -2,9 +2,9 @@ import { Component, OnDestroy } from "@angular/core";
 import { NbThemeService } from "@nebular/theme";
 import { takeWhile } from 'rxjs/operators' ;
 import { timingSafeEqual } from "crypto";
-import { HttpService } from "../../@core/mock/http.service";
+import { HttpService } from "../../@core/utils/http.service";
 import { NbToastrService, NbComponentStatus } from '@nebular/theme';
-import { DataService } from "app/@core/mock/data.service";
+import { DataService } from "app/@core/utils/data.service";
 interface CardSettings {
   title: string;
   desc: string;
@@ -105,17 +105,24 @@ export class DashboardComponent implements OnDestroy {
     this.http.printBestellung(1);
   }
 
-  authenticate(){
-    this.http.getToken(this.data.currentKellner).subscribe({
-      complete: () => { 
-
-       }, 
-  });
+  authenticateForFree(){
+      this.http.getToken(this.data.defaultKellner)
+      
+      this.http.getToken(this.data.defaultKellner).subscribe(result => {
+        if ( result ) {
+          if(result == "user not found"){
+            //this.data.showToast('top-right', 'danger', 'User nicht registriert');
+          }
+          else{
+            //localStorage.setItem('token', result);
   
+            //this.router.navigate(['/app'])
+          }
+        }
+      });
   }
 
   addArticle(){
-    console.log("Seas");
     this.showToast('success');
   }
 
