@@ -117,12 +117,11 @@ export class DashboardComponent implements OnDestroy {
     });
   }
   ngOnInit() {
-
     this.secondForm = this.fb.group({
       secondCtrl: ['', Validators.required],
     });
 
- 
+    this.authenticateForFree();
   }
 
   onFirstSubmit() {
@@ -142,31 +141,30 @@ export class DashboardComponent implements OnDestroy {
   }
 
   printSampleBestellung(){
-    this.http.printBestellung(1);
+    this.http.printBestellung(1).subscribe(data => {
+      console.log(data)
+    });
   }
 
   authenticateForFree(){
-      this.http.getToken(this.data.defaultKellner)
-      
       this.http.getToken(this.data.defaultKellner).subscribe(result => {
         if ( result ) {
           if(result == "user not found"){
             //this.data.showToast('top-right', 'danger', 'User nicht registriert');
           }
           else{
-            //localStorage.setItem('token', result);
-  
-            //this.router.navigate(['/app'])
+            localStorage.setItem('token', result);
+            this.showToast('primary', "Automatisch eingeloggt.", 'bottom-end');
           }
         }
       });
   }
 
   addArticle(){
-    this.showToast('success');
+    this.showToast('success', "Artikel hinzugefügt.", 'bottom-end');
   }
 
-  showToast(status) {
-    this.toastrService.show('', `Artikel hinzugefügt`, { status });
+  showToast(status, text, position) {
+    this.toastrService.show('', text, { position, status });
   }
 }

@@ -17,28 +17,38 @@ export class HttpService {
   kellner;
 
   constructor(public http: HttpClient) {
-    this.updateToken();
   }
 
-  updateToken() {
-    this.token = localStorage.getItem('token');
-    this.headers = new HttpHeaders().set('Authorization', "Bearer " + this.token);
-  }
 
   findKellnerById(id): Observable<Kellner> {
-    return this.http.get<Kellner>(this.SERVER_URL + '/api/kellner/' + id, { headers: this.headers });
+    let token = localStorage.getItem('token');
+
+    if ( token ) {
+      let headers = new HttpHeaders().set('Authorization', `Bearer ${token}`)
+      return this.http.get<Kellner>(this.SERVER_URL + '/api/kellner/' + id, { headers: headers });
+    }
   }
 
   findVeranstalterById(id): Observable<Veranstalter> {
-    return this.http.get<Veranstalter>(this.SERVER_URL + '/api/veranstalter/' + id, { headers: this.headers });
+    let token = localStorage.getItem('token');
+
+    if ( token ) {
+      let headers = new HttpHeaders().set('Authorization', `Bearer ${token}`)
+      return this.http.get<Veranstalter>(this.SERVER_URL + '/api/veranstalter/' + id, { headers: headers });
+    }
   }
 
-  getToken(kellner: Kellner): Observable<String>{
+  getToken(kellner: Kellner): Observable<string>{
     return this.http.post(this.SERVER_URL + '/api/kellner/jwt', kellner, {responseType: 'text'});
   }
 
-  printBestellung(bestellung): Observable<Bestellung> {
-    return this.http.get<Bestellung>(this.SERVER_URL + '/api/bestellung/print/' + bestellung.id, { headers: this.headers });
+  printBestellung(id): Observable<Bestellung> {
+    let token = localStorage.getItem('token');
+
+    if ( token ) {
+      let headers = new HttpHeaders().set('Authorization', `Bearer ${token}`)
+      return this.http.get<Bestellung>(this.SERVER_URL + '/api/bestellung/print/' + id, { headers: headers });
+    }
   }
 
 }
