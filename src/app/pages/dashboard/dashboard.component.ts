@@ -5,6 +5,7 @@ import { timingSafeEqual } from "crypto";
 import { HttpService } from "../../@core/utils/http.service";
 import { NbToastrService, NbComponentStatus } from '@nebular/theme';
 import { DataService } from "app/@core/utils/data.service";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 interface CardSettings {
   title: string;
   desc: string;
@@ -36,7 +37,7 @@ export class DashboardComponent implements OnDestroy {
     type: 'success',
   };
   wirelessAudioCard: CardSettings = {
-    title: 'Bier 0.5',
+    title: 'Bier 0.5l',
     desc: 'Freistädter',
     iconClass: 'nb-audio',
     type: 'info',
@@ -47,6 +48,19 @@ export class DashboardComponent implements OnDestroy {
     iconClass: 'nb-coffee-maker',
     type: 'warning',
   };
+  spritzerCard: CardSettings = {
+    title: 'Spritzer 0.3l',
+    desc: 'Mit Soda',
+    iconClass: 'nb-coffee-maker',
+    type: 'warning',
+  };
+
+  colaCard: CardSettings = {
+    title: 'Cola 0.3l',
+    desc: '',
+    iconClass: 'nb-coffee-maker',
+    type: 'info',
+  };
 
   statusCards: string;
 
@@ -55,6 +69,8 @@ export class DashboardComponent implements OnDestroy {
     this.rollerShadesCard,
     this.wirelessAudioCard,
     this.coffeeMakerCard,
+    this.spritzerCard,
+    this.colaCard,
   ];
 
   statusCardsByThemes: {
@@ -101,17 +117,12 @@ export class DashboardComponent implements OnDestroy {
     });
   }
   ngOnInit() {
-    this.firstForm = this.fb.group({
-      firstCtrl: ['', Validators.required],
-    });
 
     this.secondForm = this.fb.group({
       secondCtrl: ['', Validators.required],
     });
 
-    this.thirdForm = this.fb.group({
-      thirdCtrl: ['', Validators.required],
-    });
+ 
   }
 
   onFirstSubmit() {
