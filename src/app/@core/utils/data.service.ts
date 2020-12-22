@@ -10,7 +10,7 @@ export class DataService {
 
   public veranstalter: Veranstalter;  
   public arikelList: Array<Artikel>;
-  public currentKellner: Kellner = {
+  public defaultKellner: Kellner = {
     id: 1,
     email: 'example@mail.com',
     name: 'Huber',
