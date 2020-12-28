@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DataService } from 'app/@core/utils/data.service';
 
 @Component({
   selector: 'ngx-two-columns-layout',
@@ -25,6 +26,16 @@ import { Component } from '@angular/core';
       </nb-layout-footer>
 
     </nb-layout>
+
+
+    <nb-layout *ngIf="!data.paramInit" windowMode>
+      <nb-layout-column>
+        <p>Kein Veranstalter angegeben. Das ist eine falsche URL.</p>
+      </nb-layout-column>
+    </nb-layout>
   `,
 })
-export class TwoColumnsLayoutComponent {}
+export class TwoColumnsLayoutComponent {
+  constructor(public data: DataService) {
+  }
+}

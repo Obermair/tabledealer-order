@@ -7,11 +7,19 @@
     flex-direction: row;
     align-items: center;
     height: 6rem;
+    justify-content: space-between;
     overflow: visible;
 
     .icon-container {
       height: 100%;
       padding: 0.625rem;
+    }
+
+    nb-form-field{
+      width: 150px;
+    }
+    input{
+      text-align: center;
     }
 
     .icon {
@@ -31,12 +39,12 @@
       @each $status in nb-get-statuses() {
         &.status-#{$status} {
           $left-color: nb-theme(button-hero-#{$status}-left-background-color);
-          $right-color: nb-theme(button-hero-#{$status}-right-background-color);
+          $right-color: nb-theme(button-hero-#{$status}-left-background-color);
           background-image: linear-gradient(to right, $left-color, $right-color);
 
           &:hover {
             $left-hover-color: nb-theme(button-hero-#{$status}-hover-left-background-color);
-            $right-hover-color: nb-theme(button-hero-#{$status}-hover-right-background-color);
+            $right-hover-color: nb-theme(button-hero-#{$status}-hover-left-background-color);
             background-image: linear-gradient(to right, $left-hover-color, $right-hover-color);
           }
         }

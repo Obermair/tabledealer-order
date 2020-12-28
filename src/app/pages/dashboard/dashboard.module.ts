@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { NbCardModule, NbIconModule, NbAlertModule, NbStepperModule, NbButtonModule } from '@nebular/theme';
+import { NbCardModule, NbIconModule, NbAlertModule, NbStepperModule, NbButtonModule, NbAccordionModule, NbInputModule, NbCheckboxModule, NbListModule, NbFormFieldModule } from '@nebular/theme';
 
 import { ThemeModule } from '../../@theme/theme.module';
 import { DashboardComponent } from './dashboard.component';
@@ -17,7 +17,16 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     FormsModule,
     ReactiveFormsModule,
     NbStepperModule,
-    NbButtonModule
+    NbButtonModule,
+    NbAccordionModule,
+    NbIconModule,
+    NbButtonModule,
+    NbInputModule,    
+    NbCheckboxModule,
+    NbListModule,
+    NbStepperModule,
+    NbAlertModule,
+    NbFormFieldModule
   ],
   declarations: [
     DashboardComponent,

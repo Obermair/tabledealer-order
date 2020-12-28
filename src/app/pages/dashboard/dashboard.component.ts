@@ -104,13 +104,10 @@ export class DashboardComponent implements OnDestroy {
     origin: this.commonStatusCardsSet,
   };
 
-  firstForm: FormGroup;
-  secondForm: FormGroup;
-  thirdForm: FormGroup;
   veranstalerId="";
 
-  constructor(private toastrService: NbToastrService, private themeService: NbThemeService, private http: HttpService, 
-    private data: DataService,private fb: FormBuilder,private route: ActivatedRoute) {
+  constructor(private themeService: NbThemeService, private http: HttpService, 
+    public data: DataService, private route: ActivatedRoute) {
     
       this.themeService.getJsTheme()
         .pipe(takeWhile(() => this.alive))
@@ -120,28 +117,15 @@ export class DashboardComponent implements OnDestroy {
 
       this.data.veranstalterId = this.route.snapshot.queryParamMap.get('veranstalter');
 
-      this.data.setVeranstalter(this.data.veranstalterId);
-      this.data.loadArtikelByVeranstalter();
-  }
-
-  ngOnInit() {
-    this.secondForm = this.fb.group({
-      secondCtrl: ['', Validators.required],
-    });
-
-    this.authenticateForFree();
-  }
-
-  onFirstSubmit() {
-    this.firstForm.markAsDirty();
-  }
-
-  onSecondSubmit() {
-    this.secondForm.markAsDirty();
-  }
-
-  onThirdSubmit() {
-    this.thirdForm.markAsDirty();
+      if(this.route.snapshot.queryParamMap.get('veranstalter') == null){
+        this.data.paramInit = false;
+      }
+      else {
+        this.data.paramInit = true;    
+        this.authenticateForFree();
+        this.data.setVeranstalter(this.data.veranstalterId);
+        this.data.loadArtikelByVeranstalter();
+      }
   }
 
   ngOnDestroy() {
@@ -161,17 +145,10 @@ export class DashboardComponent implements OnDestroy {
           }
           else{
             localStorage.setItem('token', result);
-            this.showToast('primary', "Automatisch eingeloggt.", 'bottom-end');
+            this.data.showToast('primary', "Automatisch eingeloggt.", 'bottom-end');
           }
         }
       });
   }
 
-  addArticle(){
-    this.showToast('success', "Artikel hinzugefügt.", 'bottom-end');
-  }
-
-  showToast(status, text, position) {
-    this.toastrService.show('', text, { position, status });
-  }
 }

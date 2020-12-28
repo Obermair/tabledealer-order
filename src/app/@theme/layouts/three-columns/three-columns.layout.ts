@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
+import { DataService } from 'app/@core/utils/data.service';
 
 @Component({
   selector: 'ngx-three-columns-layout',
   styleUrls: ['./three-columns.layout.scss'],
   template: `
-    <nb-layout windowMode>
+    <nb-layout *ngIf="data.paramInit" windowMode>
       <nb-layout-header fixed>
         <ngx-header></ngx-header>
       </nb-layout-header>
@@ -27,6 +28,16 @@ import { Component } from '@angular/core';
         <ngx-footer></ngx-footer>
       </nb-layout-footer>
     </nb-layout>
+    
+
+    <nb-layout *ngIf="!data.paramInit" windowMode>
+      <nb-layout-column>
+        <p>Kein Veranstalter angegeben. Das ist eine falsche URL.</p>
+      </nb-layout-column>
+    </nb-layout>
   `,
 })
-export class ThreeColumnsLayoutComponent {}
+export class ThreeColumnsLayoutComponent {
+  constructor(public data: DataService) {
+  }
+}
