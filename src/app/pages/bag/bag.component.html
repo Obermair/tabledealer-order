@@ -5,104 +5,70 @@
     <nb-card>
       <nb-card-body>
         <nb-stepper #stepper>
-          <nb-step [stepControl]="firstForm" label="First step">
-            <form [formGroup]="firstForm" (ngSubmit)="onFirstSubmit()" class="step-container">
+          <nb-step label="Schritt 1">
+            <form class="step-container d-flex flex-column">
+              <h5>Deine aktuelle Bestellung</h5>
               
-<nb-card>
-  <nb-card-header>
-    <input nbInput fieldSize="giant" fullWidth placeholder="Add item" #input (keyup.enter)="onAdd(input.value); input.value = ''" />
-  </nb-card-header>
+              <nb-list *ngIf="data.bestellartikel.length > 0">
+                <nb-list-item class="list" *ngFor="let ba of data.bestellartikel">
+                  
+                  <p class="mt-2">{{ ba.menge }}x {{ ba.artikel.name }}</p>
 
-  <nb-list>
-    <nb-list-item *ngFor="let item of items$ | async">
-      <td-bag-item [item]="item"
-                    (save)="onSave($event)"
-                    (toggleComplete)="onToggleCompleted($event)"
-                    (delete)="onDelete($event)">
-      </td-bag-item>
-    </nb-list-item>
+                  <nb-form-field class="mr-1">
+                    <nb-icon (click)="decAmount(ba)" nbPrefix icon="minus-outline" pack="eva"></nb-icon>
+                    <input class="amount" [ngModelOptions]="{standalone: true}" [(ngModel)]="ba.menge" nbInput>
+                    <nb-icon (click)="incAmount(ba)" nbSuffix icon="plus-outline" pack="eva"></nb-icon>
+                  </nb-form-field>
+                </nb-list-item>
+              </nb-list>
 
-    <nb-list-item *ngIf="(itemsNumber$ | async) === 0" class="no-items">No items yet.</nb-list-item>
-  </nb-list>
+              
+              <p *ngIf="data.bestellartikel.length == 0">Noch keine Artikel hinzugefügt. Wähle bitte Artikel aus der Artikelliste.</p>
 
-  <nb-card-footer>
-    <span> {{ itemsNumber$ | async }} items</span>
-    <nb-select size="medium" status="primary" selected="all" (selectedChange)="changeFilter($event)">
-      <nb-option value="all">All</nb-option>
-      <nb-option value="completed">Completed</nb-option>
-      <nb-option value="active">Active</nb-option>
-    </nb-select>
-  </nb-card-footer>
-</nb-card>
-              <div class="input-group">
-                <input type="text" placeholder="Enter your name" class="form-control" formControlName="firstCtrl"
-                       [ngClass]="{'form-control-danger': firstForm.invalid && (firstForm.dirty || firstForm.touched)}">
-              </div>
-              <button nbButton nbStepperNext>next</button>
+              <button class="m-2" *ngIf="data.bestellartikel.length > 0" nbButton nbStepperNext>Weiter</button>
             </form>
           </nb-step>
-          <nb-step [stepControl]="secondForm" label="Second step">
-            <form [formGroup]="secondForm" (ngSubmit)="onSecondSubmit()" class="step-container">
+          <nb-step [stepControl]="secondForm" label="Schritt 2">
+            <form [formGroup]="secondForm" (ngSubmit)="onSecondSubmit()" class="step-container d-flex flex-column">
               <p class="lorem">
-                Pellentesque we gonna chung tortor.
-                Sizzle pizzle. Fizzle izzle dolor dapibus fo shizzle mah nizzle fo rizzle, mah home g-dizzle tempus tempor.
-                Maurizzle cool nibh owned turpizzle. My shizz fo shizzle tortor.
+                Bitte gib hier deine Tischnummer ein.
               </p>
               <div class="input-group">
-                <input type="text" placeholder="Enter favorite movie" class="form-control" formControlName="secondCtrl"
-                       [ngClass]="{'form-control-danger': secondForm.invalid && (secondForm.dirty || secondForm.touched)}">
+                <input type="text" [(ngModel)]="data.currentBestellung.tischnr" placeholder="13" class="form-control" formControlName="secondCtrl">
               </div>
-              <button nbButton nbStepperPrevious>prev</button>
-              <button nbButton nbStepperNext>next</button>
+              <div class="d-flex flex-row justify-content-between">
+                <button nbButton class="mt-2" nbStepperPrevious>Zurück</button>
+                <button nbButton class="mt-2" nbStepperNext>Weiter</button>
+              </div>
             </form>
           </nb-step>
-          <nb-step [stepControl]="thirdForm" label="Third step">
-            <form [formGroup]="thirdForm" (ngSubmit)="onThirdSubmit()" class="step-container">
+          <nb-step [stepControl]="thirdForm" label="Schritt 3">
+            <form class="step-container">
               <p class="lorem">
-                Things boom shackalack rhoncus yo. In fo shizzle my nizzle gangsta platea dictumst. Check it out pot.
+                Bitte überprüfe deine Bestellung:
               </p>
-              <div class="input-group">
-                <input type="text" placeholder="Enter something" class="form-control" formControlName="thirdCtrl"
-                       [ngClass]="{'form-control-danger': thirdForm.invalid && (thirdForm.dirty || thirdForm.touched)}">
+              <h5>Tischnummer: {{data.currentBestellung.tischnr}}</h5>
+
+              <nb-list *ngIf="data.bestellartikel.length > 0">
+                <nb-list-item class="list" *ngFor="let ba of data.bestellartikel">
+                  <p class="mt-2">{{ ba.menge }}x {{ ba.artikel.name }}</p>
+                </nb-list-item>
+              </nb-list>
+
+              <div class="d-flex flex-row justify-content-between">
+                <button nbButton class="mt-2" nbStepperPrevious>Zurück</button>
+                <button nbButton class="mt-2" (click)="thirdSubmit()" nbStepperNext>Weiter</button>
               </div>
-              <button nbButton nbStepperPrevious>prev</button>
-              <button nbButton nbStepperNext>Confirm</button>
             </form>
           </nb-step>
-          <nb-step [stepControl]="thirdForm" [hidden]="true" label="Third step">
-            <div class="step-container">
-              <h3>Wizard completed!</h3>
-              <button nbButton (click)="stepper.reset()">Try again</button>
+          <nb-step [stepControl]="thirdForm" [hidden]="true" label="Schritt 3">
+            <div class="step-container d-flex flex-column">
+              <h3>Danke für deine Bestellung.</h3>
+              <p>Sie dürfte in Kürze bei dir eintreffen.</p>
+              <button nbButton (click)="stepper.reset(); resetStepper()">Nochmal bestellen.</button>
             </div>
           </nb-step>
         </nb-stepper>
       </nb-card-body>
     </nb-card>
   </div>
-
-  <nb-card size="small">
-    <nb-card-body>
-
-      <button nbSuffix nbButton (click)="decAmount()">
-        <nb-icon icon="minus-outline"
-                 pack="eva"
-                 [attr.aria-label]="showPassword ? 'hide password' : 'show password'">
-        </nb-icon>
-      </button>
-      <input class="amount" [(ngModel)]="amount" [type]="getInputType()" nbInput>
-        <button nbSuffix nbButton (click)="incAmount()">
-          <nb-icon icon="plus-outline"
-                   pack="eva"
-                   [attr.aria-label]="showPassword ? 'hide password' : 'show password'">
-          </nb-icon>
-        </button>
-        
-        <button nbSuffix nbButton (click)="deleteArticle()">
-          <nb-icon icon="trash-2-outline" pack="eva">
-          </nb-icon>
-        </button>
-
-          
-
-    </nb-card-body>
-  </nb-card> 

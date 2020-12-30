@@ -3,6 +3,9 @@ import { Observable } from 'rxjs';
 import { Bag } from './bag';
 import { Filter, BagService } from './bag.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DataService } from 'app/@core/utils/data.service';
+import { Bestellungartikel } from 'app/@core/models/bestellartikel';
+import { HttpService } from 'app/@core/utils/http.service';
 
 
 @Component({
@@ -12,95 +15,76 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class BagComponent implements OnInit {
 
-  
-  items$: Observable<Bag[]>;
-  itemsNumber$: Observable<number>;
-  firstForm: FormGroup;
   secondForm: FormGroup;
   thirdForm: FormGroup;
 
-  constructor(private bagService: BagService, private fb: FormBuilder) {
-    this.items$ = this.bagService.filteredItems();
-    this.itemsNumber$ = this.bagService.filteredItemsNumber();
+  constructor(private http: HttpService,private fb: FormBuilder, public data: DataService) {
   }
-
- 
-
-  changeFilter(filterValue: Filter) {
-    this.bagService.setFilter(filterValue);
-  }
-
-  onAdd(message: string) {
-    if (message.trim()) {
-      this.bagService.add({ message, completed: false });
-    }
-  }
-
-  onSave([item, message]: [Bag, string]) {
-    this.bagService.updateMessage(item, message);
-  }
-
-  onToggleCompleted([item, completed]: [Bag, boolean]) {
-    this.bagService.toggleCompleted(item, completed);
-  }
-
-  onDelete(item) {
-    this.bagService.delete(item);
-  }
-
-  
-  
 
   ngOnInit() {
-    this.firstForm = this.fb.group({
-      firstCtrl: ['', Validators.required],
-    });
-
     this.secondForm = this.fb.group({
       secondCtrl: ['', Validators.required],
     });
 
-    this.thirdForm = this.fb.group({
-      thirdCtrl: ['', Validators.required],
-    });
-  }
 
-  onFirstSubmit() {
-    this.firstForm.markAsDirty();
   }
 
   onSecondSubmit() {
     this.secondForm.markAsDirty();
   }
 
-  onThirdSubmit() {
-    this.thirdForm.markAsDirty();
+  thirdSubmit() {
+    this.http.postBestellung(this.data.currentBestellung).subscribe((bestellung)=>{
+      this.data.currentBestellung = bestellung;
+
+      this.data.bestellartikel.forEach((ba)=>{
+        ba.bestellung = this.data.currentBestellung;
+
+        this.http.postBestellungartikel(ba).subscribe((result)=>{
+        });
+      })
+    })
+
+    this.wait(1000);
+
+    this.http.printBestellung(this.data.currentBestellung.id).subscribe(data => {
+    });
   }
 
-  showPassword = true;
-  amount = 0;
+  wait(ms){
+    var start = new Date().getTime();
+    var end = start;
+    while(end < start + ms) {
+      end = new Date().getTime();
+   }
+ }
 
-  getInputType() {
-    if (this.showPassword) {
-      return 'text';
-    }
-    return 'password';
+  incAmount(ba: Bestellungartikel){
+    let a = this.data.bestellartikel.findIndex(item => item.artikel === ba.artikel)
+
+    if(a != -1){
+      this.data.bestellartikel[a].menge++;
+    } 
   }
 
-  toggleShowPassword() {
-    this.showPassword = !this.showPassword;
+  decAmount(ba: Bestellungartikel){
+    let a = this.data.bestellartikel.findIndex(item => item.artikel === ba.artikel)
+    
+    if(a != -1){
+      if(this.data.bestellartikel[a].menge == 1){
+        this.data.bestellartikel.splice(a, 1);
+      }
+      else{
+        this.data.bestellartikel[a].menge--;
+      }
+    } 
   }
 
-  incAmount(){
-    this.amount += 1;
+  resetStepper(){
+    this.data.bestellartikel = [];
+    this.data.currentBestellung = {
+      id: null,
+      tischnr: 13
+    };
   }
-  decAmount(){
-    if(this.amount > 0) {
-      this.amount -= 1;
-    }
-  }
-  deleteArticle(){
-
-  }
-
 }

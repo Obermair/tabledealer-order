@@ -1,7 +1,6 @@
 import { Component, OnDestroy } from "@angular/core";
 import { NbThemeService } from "@nebular/theme";
 import { takeWhile } from 'rxjs/operators' ;
-import { timingSafeEqual } from "crypto";
 import { HttpService } from "../../@core/utils/http.service";
 import { NbToastrService, NbComponentStatus } from '@nebular/theme';
 import { DataService } from "app/@core/utils/data.service";
@@ -104,8 +103,6 @@ export class DashboardComponent implements OnDestroy {
     origin: this.commonStatusCardsSet,
   };
 
-  veranstalerId="";
-
   constructor(private themeService: NbThemeService, private http: HttpService, 
     public data: DataService, private route: ActivatedRoute) {
     
@@ -115,12 +112,8 @@ export class DashboardComponent implements OnDestroy {
           this.statusCards = this.statusCardsByThemes[theme.name];
       });
 
-      this.data.veranstalterId = this.route.snapshot.queryParamMap.get('veranstalter');
 
-      if(this.route.snapshot.queryParamMap.get('veranstalter') == null){
-        this.data.paramInit = false;
-      }
-      else {
+      if(this.data.paramInit){
         this.data.paramInit = true;    
         this.authenticateForFree();
         this.data.setVeranstalter(this.data.veranstalterId);

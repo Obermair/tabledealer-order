@@ -7,6 +7,7 @@ import { Kellner } from "../models/kellner";
 import { Veranstalter } from "../models/veranstalter";
 import { Bestellung } from "../models/bestellung";
 import { Artikel } from "../models/Artikel";
+import { Bestellungartikel } from "../models/bestellartikel";
 
 @Injectable({
   providedIn: "root",
@@ -53,6 +54,25 @@ export class HttpService {
 
   getToken(kellner: Kellner): Observable<string>{
     return this.http.post(this.SERVER_URL + '/api/kellner/jwt', kellner, {responseType: 'text'});
+  }
+
+  
+  postBestellung(bestellung: Bestellung): Observable<Bestellung>{
+    let token = localStorage.getItem('token');
+
+    if ( token ) {
+      let headers = new HttpHeaders().set('Authorization', `Bearer ${token}`)
+      return this.http.post<Bestellung>(this.SERVER_URL + '/api/bestellung', bestellung, { headers: headers });
+    }
+  }
+  
+  postBestellungartikel(ba: Bestellungartikel): Observable<Bestellungartikel>{
+    let token = localStorage.getItem('token');
+
+    if ( token ) {
+      let headers = new HttpHeaders().set('Authorization', `Bearer ${token}`)
+      return this.http.post<Bestellungartikel>(this.SERVER_URL + '/api/bestellartikel', ba, { headers: headers });
+    }
   }
 
   printBestellung(id): Observable<Bestellung> {

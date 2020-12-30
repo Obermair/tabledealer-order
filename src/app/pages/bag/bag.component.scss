@@ -11,8 +11,19 @@ nb-card-footer {
   justify-content: center;
 }
 
-.amount {
-  width: 20vw;
+.amount{
+  text-align: center;
+  width: 150px !important;
+}
+
+
+nb-icon{
+  cursor: pointer;
+}
+
+.list{
+  display: flex;
+  justify-content: space-between;
 }
 
 .control-status-example {

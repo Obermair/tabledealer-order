@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { NbToastrService } from '@nebular/theme';
 import { Artikel } from '../models/Artikel';
 import { Bestellungartikel } from '../models/bestellartikel';
+import { Bestellung } from '../models/bestellung';
 import { Kellner } from '../models/kellner';
 import { Veranstalter } from '../models/veranstalter';
 import { HttpService } from './http.service';
@@ -17,12 +18,16 @@ interface CardSettings {
   providedIn: 'root'
 })
 export class DataService {
-  public veranstalterId: string = '1';
+  public veranstalterId: string = null;
   public veranstalter: Veranstalter;  
   public arikelList: Array<Artikel>;
   public commonStatusCardsSet: CardSettings[];
   public bestellartikel: Bestellungartikel[] = []; 
-  public paramInit = true;
+  public currentBestellung: Bestellung = {
+    tischnr: 13
+  };
+
+  public paramInit = false;
 
   public defaultKellner: Kellner = {
     id: 1,
@@ -58,7 +63,7 @@ export class DataService {
     } else{
       let bestellartikel: Bestellungartikel = {
         artikel: article,
-        bestellung: null,
+        bestellung: this.currentBestellung,
         menge: 1
       };
 
