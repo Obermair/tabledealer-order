@@ -19,7 +19,7 @@ export class TrafficBarService extends TrafficBarData {
 
   getDataForWeekPeriod(): TrafficBar {
     return {
-      data: [10, 15, 19, 7, 20, 13, 15],
+      data: [10, 15, 19, 71, 20, 13, 15],
       labels: this.period.getWeeks(),
       formatter: '{c0} MB',
     };
