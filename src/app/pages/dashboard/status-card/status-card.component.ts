@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Artikel } from 'app/@core/models/Artikel';
+import { Artikel } from 'app/@core/models/artikel';
 import { DataService } from 'app/@core/utils/data.service';
 
 @Component({

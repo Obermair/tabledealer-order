@@ -1,4 +1,4 @@
-import { Artikel } from "./Artikel";
+import { Artikel } from "./artikel";
 import { Bestellung } from "./bestellung";
 
 export interface Bestellungartikel {

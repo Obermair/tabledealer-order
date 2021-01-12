@@ -6,7 +6,7 @@ import { DataService } from "./data.service";
 import { Kellner } from "../models/kellner";
 import { Veranstalter } from "../models/veranstalter";
 import { Bestellung } from "../models/bestellung";
-import { Artikel } from "../models/Artikel";
+import { Artikel } from "../models/artikel";
 import { Bestellungartikel } from "../models/bestellartikel";
 
 @Injectable({

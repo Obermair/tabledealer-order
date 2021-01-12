@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { NbToastrService } from '@nebular/theme';
-import { Artikel } from '../models/Artikel';
+import { Artikel } from '../models/artikel';
 import { Bestellungartikel } from '../models/bestellartikel';
 import { Bestellung } from '../models/bestellung';
 import { Kellner } from '../models/kellner';
