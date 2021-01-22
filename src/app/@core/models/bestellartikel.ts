@@ -6,4 +6,5 @@ export interface Bestellungartikel {
     artikel: Artikel;
     bestellung: Bestellung;
     menge: number;
+    inEdit?: boolean;
 }

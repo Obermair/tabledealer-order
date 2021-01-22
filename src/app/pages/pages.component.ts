@@ -19,6 +19,9 @@ export class PagesComponent {
   menu = MENU_ITEMS;
 
   constructor(private data: DataService, private route: ActivatedRoute){
+    this.data.veranstalterId = '1';
+    this.data.paramInit = true;
+
     if(this.data.veranstalterId == null){
       this.data.veranstalterId = this.route.snapshot.queryParamMap.get('veranstalter');
 

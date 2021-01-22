@@ -1,6 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { Artikel } from 'app/@core/models/artikel';
 import { DataService } from 'app/@core/utils/data.service';
+import { registerLocaleData } from '@angular/common';
+import localeDe from '@angular/common/locales/fr';
+registerLocaleData(localeDe, 'de');
 
 @Component({
   selector: 'ngx-status-card',
@@ -9,7 +12,7 @@ import { DataService } from 'app/@core/utils/data.service';
     <nb-card>
       <div class="details">
         <div class="title ml-2 h5">{{ title }}</div>
-        <div class="status ml-2 paragraph-2">{{ desc }}</div>
+        <div class="status ml-2 paragraph-2">{{ price | currency:'EUR':'symbol':'1.2-2':'de' }}</div>
       </div>
       <div>
 
@@ -26,6 +29,7 @@ export class StatusCardComponent {
 
   @Input() title: string;
   @Input() desc: string;
+  @Input() price : number;
   @Input() type: string;
   @Input() article: Artikel;
   @Input() on = true;
@@ -41,6 +45,7 @@ export class StatusCardComponent {
       this.data.showToast('success', this.article.name + " hinzugefügt.", 'bottom-end');
       this.amount += 1;
     }
+    
   }
 
   decAmount(){
@@ -50,4 +55,6 @@ export class StatusCardComponent {
       this.amount -= 1;
     }
   }
+
+  
 }

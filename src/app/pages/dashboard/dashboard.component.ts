@@ -121,6 +121,8 @@ export class DashboardComponent implements OnDestroy {
       }
   }
 
+  
+
   ngOnDestroy() {
     this.alive = false;
   }

@@ -19,6 +19,7 @@ export class BagComponent implements OnInit {
   thirdForm: FormGroup;
 
   constructor(private http: HttpService,private fb: FormBuilder, public data: DataService) {
+    
   }
 
   ngOnInit() {
@@ -65,6 +66,8 @@ export class BagComponent implements OnInit {
     if(a != -1){
       this.data.bestellartikel[a].menge++;
     } 
+    
+    this.data.calcSum();
   }
 
   decAmount(ba: Bestellungartikel){
@@ -77,7 +80,18 @@ export class BagComponent implements OnInit {
       else{
         this.data.bestellartikel[a].menge--;
       }
-    } 
+    }
+    this.data.calcSum();
+  }
+
+  getPrice(){
+    let sum = 0; 
+    this.data.bestellartikel.forEach(function (value) {
+      console.log(value.artikel.preis);
+      sum = sum + value.artikel.preis;
+    });
+    console.log(sum);
+    return sum;
   }
 
   resetStepper(){
@@ -86,5 +100,12 @@ export class BagComponent implements OnInit {
       id: null,
       tischnr: 13
     };
+  }
+
+  onEdit(item: Bestellungartikel) {
+    item.inEdit = true;
+  }
+  onSave(item: Bestellungartikel) {
+    item.inEdit = false;
   }
 }

@@ -1,4 +1,5 @@
 import { Component, HostBinding } from "@angular/core";
+import { NbThemeService } from '@nebular/theme';
 @Component({
   selector: "ngx-about",
   styleUrls: ["./help.component.scss"],
@@ -6,11 +7,17 @@ import { Component, HostBinding } from "@angular/core";
 })
 export class HelpComponent {
   
-  
+  currentTheme: string;
+  themeSubscription: any;
 
-  
+  constructor(private themeService: NbThemeService) {
+    this.themeSubscription = this.themeService.getJsTheme().subscribe(theme => {
+      this.currentTheme = theme.name;
+    });
+  }
 
- 
-
-  
+  ngOnDestroy() {
+    this.themeSubscription.unsubscribe();
+  }
 }
+

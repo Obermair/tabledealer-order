@@ -26,6 +26,7 @@ export class DataService {
   public currentBestellung: Bestellung = {
     tischnr: 13
   };
+  public sum: number = 0;
 
   public paramInit = false;
 
@@ -55,11 +56,21 @@ export class DataService {
     this.toastrService.show('', text, { position, status });
   }
 
+  calcSum(){
+    let sum = 0;
+    this.bestellartikel.forEach(function (value) {
+      console.log(value.artikel.preis);
+       sum = sum + value.artikel.preis * value.menge;
+    });
+    this.sum = sum;
+  }
+
   pushBestellartikel(article: Artikel){
     let a = this.bestellartikel.findIndex(item => item.artikel.name === article.name)
 
     if(a != -1){
       this.bestellartikel[a].menge++;
+      
     } else{
       let bestellartikel: Bestellungartikel = {
         artikel: article,
@@ -68,7 +79,10 @@ export class DataService {
       };
 
       this.bestellartikel.push(bestellartikel);
-    }   
+      
+    } 
+    
+    this.calcSum();     
   }
 
   popBestellartikel(article: Artikel){

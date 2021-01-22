@@ -6,7 +6,7 @@ import { DashboardComponent } from './dashboard.component';
 
 import { StatusCardComponent } from './status-card/status-card.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-
+import {LOCALE_ID} from '@angular/core';
 
 @NgModule({
   imports: [
@@ -32,6 +32,10 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     DashboardComponent,
     StatusCardComponent,
   ],
+  providers: [{
+    provide: LOCALE_ID,
+    useValue: 'de' // 'de' for Germany, 'fr' for France ...
+   }],
 })
 export class DashboardModule { 
 
