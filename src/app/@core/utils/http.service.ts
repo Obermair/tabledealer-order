@@ -80,6 +80,7 @@ export class HttpService {
 
     if ( token ) {
       let headers = new HttpHeaders().set('Authorization', `Bearer ${token}`)
+      console.log(this.SERVER_URL + '/api/bestellung/print/' + id)
       return this.http.get<Bestellung>(this.SERVER_URL + '/api/bestellung/print/' + id, { headers: headers });
     }
   }

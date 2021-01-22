@@ -44,12 +44,13 @@ export class BagComponent implements OnInit {
         this.http.postBestellungartikel(ba).subscribe((result)=>{
         });
       })
+
+      this.wait(1000);
+
+      console.log(this.data.currentBestellung.id)
+      this.http.printBestellung(1).subscribe(data => {
+      });
     })
-
-    this.wait(1000);
-
-    this.http.printBestellung(this.data.currentBestellung.id).subscribe(data => {
-    });
   }
 
   wait(ms){
