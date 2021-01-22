@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, LOCALE_ID, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Bag } from './bag';
 import { Filter, BagService } from './bag.service';
@@ -6,6 +6,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DataService } from 'app/@core/utils/data.service';
 import { Bestellungartikel } from 'app/@core/models/bestellartikel';
 import { HttpService } from 'app/@core/utils/http.service';
+import { formatDate } from '@angular/common';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -18,16 +20,14 @@ export class BagComponent implements OnInit {
   secondForm: FormGroup;
   thirdForm: FormGroup;
 
-  constructor(private http: HttpService,private fb: FormBuilder, public data: DataService) {
-    
+  constructor(@Inject(LOCALE_ID, ) private locale: string, private router: Router, private http: HttpService,private fb: FormBuilder, public data: DataService) {
   }
 
   ngOnInit() {
     this.secondForm = this.fb.group({
-      secondCtrl: ['', Validators.required],
+      secondNr: ['', Validators.required],
+      secondName: ['', Validators.required],
     });
-
-
   }
 
   onSecondSubmit() {
@@ -35,22 +35,20 @@ export class BagComponent implements OnInit {
   }
 
   thirdSubmit() {
+    let currentDate = new Date();
+    this.data.currentBestellung.bestellzeit = formatDate(currentDate, 'yyyy-MM-dd HH:mm', this.locale);
+
     this.http.postBestellung(this.data.currentBestellung).subscribe((bestellung)=>{
       this.data.currentBestellung = bestellung;
 
-      this.data.bestellartikel.forEach((ba)=>{
-        ba.bestellung = this.data.currentBestellung;
-
-        this.http.postBestellungartikel(ba).subscribe((result)=>{
+      this.baLoop().then(() => {
+        this.wait(1000)
+        this.http.printBestellung(bestellung.id).subscribe(data => {
+          this.resetStepper();
         });
-      })
-
-      this.wait(1000);
-
-      console.log(this.data.currentBestellung.id)
-      this.http.printBestellung(1).subscribe(data => {
       });
     })
+
   }
 
   wait(ms){
@@ -60,6 +58,22 @@ export class BagComponent implements OnInit {
       end = new Date().getTime();
    }
  }
+
+  baLoop() {
+    let requests =  new Promise<void>((resolve, reject) => {
+      
+      this.data.bestellartikel.forEach((ba, index, array)=>{
+        ba.bestellung = this.data.currentBestellung;
+        this.http.postBestellungartikel(ba).subscribe((result)=>{
+        });
+        console.log(ba, index, array.length)
+
+        if (index === array.length -1) resolve();
+      })
+    });
+
+    return requests;
+  }
 
   incAmount(ba: Bestellungartikel){
     let a = this.data.bestellartikel.findIndex(item => item.artikel === ba.artikel)
@@ -99,7 +113,8 @@ export class BagComponent implements OnInit {
     this.data.bestellartikel = [];
     this.data.currentBestellung = {
       id: null,
-      tischnr: 13
+      tischnr: 13,
+      name: 'Huber'
     };
   }
 
@@ -108,5 +123,9 @@ export class BagComponent implements OnInit {
   }
   onSave(item: Bestellungartikel) {
     item.inEdit = false;
+  }
+
+  backToDash() {
+    this.router.navigate(['pages/dashboard'])
   }
 }

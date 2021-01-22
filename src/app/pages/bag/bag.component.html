@@ -13,12 +13,6 @@
                 <nb-list-item class="" *ngFor="let ba of data.bestellartikel">
                   
                   <p class="mt-2">{{ ba.menge }}x {{ ba.artikel.name }}</p>
-
-                  
-
-                
-
-
                   <div class="actions">
                   <!--<nb-form-field class="mr-1" [hidden]="!ba.inEdit">
                     <nb-icon (click)="decAmount(ba)" nbPrefix icon="minus-outline" pack="eva"></nb-icon>
@@ -64,7 +58,14 @@
                 Bitte gib hier deine Tischnummer ein.
               </p>
               <div class="input-group">
-                <input type="text" [(ngModel)]="data.currentBestellung.tischnr" placeholder="13" class="form-control" formControlName="secondCtrl">
+                <input maxlength="15" type="text" [(ngModel)]="data.currentBestellung.tischnr" placeholder="13" class="form-control" formControlName="secondNr">
+              </div>
+
+              <p class="lorem mt-4">
+                Bitte gib hier deinen Namen an, damit wir die Bestellung zu dir bringen können.
+              </p>
+              <div class="input-group">
+                <input maxlength="50" type="text" [(ngModel)]="data.currentBestellung.name" placeholder="Huber" class="form-control" formControlName="secondName">
               </div>
               <div class="d-flex flex-row justify-content-between">
                 <button nbButton class="mt-2" nbStepperPrevious>Zurück</button>
@@ -95,7 +96,7 @@
             <div class="step-container d-flex flex-column">
               <h3>Danke für deine Bestellung.</h3>
               <p>Sie dürfte in Kürze bei dir eintreffen.</p>
-              <button nbButton (click)="stepper.reset(); resetStepper()">Nochmal bestellen.</button>
+              <button nbButton (click)="backToDash()">Nochmal bestellen.</button>
             </div>
           </nb-step>
         </nb-stepper>

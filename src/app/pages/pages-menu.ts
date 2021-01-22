@@ -8,7 +8,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
     home: true,
   },
   {
-    title: 'Einkauf',
+    title: 'Warenkorb',
     icon: 'shopping-bag-outline',
     link: '/pages/bag',
     home: true,

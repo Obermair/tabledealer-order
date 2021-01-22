@@ -3,4 +3,6 @@
     <ngx-status-card [article]="article" [title]="article.name" [desc]="article.kategorie.name" [price]="article.preis" [type]="primary">
     </ngx-status-card>
   </div>
+
+  <button status="primary" class="m-2" fullWidth  *ngIf="data.bestellartikel.length > 0" nbButton (click)="navToBag()">Weiter zur Bestellübersicht</button>
 </div>

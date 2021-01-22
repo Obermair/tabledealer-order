@@ -1,6 +1,7 @@
 export interface Bestellung {
     id?: number;
-    bestellzeit?: Date;
+    bestellzeit?: string;
+    name?: string;
     finished?: Boolean;
     printed?: Boolean;
     tischnr: number;

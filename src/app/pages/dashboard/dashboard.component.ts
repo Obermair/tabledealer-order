@@ -5,7 +5,7 @@ import { HttpService } from "../../@core/utils/http.service";
 import { NbToastrService, NbComponentStatus } from '@nebular/theme';
 import { DataService } from "app/@core/utils/data.service";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { ActivatedRoute, Params } from "@angular/router";
+import { ActivatedRoute, Params, Router } from "@angular/router";
 interface CardSettings {
   title: string;
   desc: string;
@@ -104,7 +104,7 @@ export class DashboardComponent implements OnDestroy {
   };
 
   constructor(private themeService: NbThemeService, private http: HttpService, 
-    public data: DataService, private route: ActivatedRoute) {
+    public data: DataService, private route: ActivatedRoute, private router: Router) {
     
       this.themeService.getJsTheme()
         .pipe(takeWhile(() => this.alive))
@@ -114,14 +114,14 @@ export class DashboardComponent implements OnDestroy {
 
 
       if(this.data.paramInit){
-        this.data.paramInit = true;    
-        this.authenticateForFree();
-        this.data.setVeranstalter(this.data.veranstalterId);
-        this.data.loadArtikelByVeranstalter();
+        this.data.paramInit = true;  
+        this.data.authenticateForFree().then(() => {
+          this.data.setVeranstalter();
+          this.data.loadArtikelByVeranstalter();
+        });
       }
   }
 
-  
 
   ngOnDestroy() {
     this.alive = false;
@@ -132,18 +132,8 @@ export class DashboardComponent implements OnDestroy {
     });
   }
 
-  authenticateForFree(){
-      this.http.getToken(this.data.defaultKellner).subscribe(result => {
-        if ( result ) {
-          if(result == "user not found"){
-            //this.data.showToast('top-right', 'danger', 'User nicht registriert');
-          }
-          else{
-            localStorage.setItem('token', result);
-            this.data.showToast('primary', "Automatisch eingeloggt.", 'bottom-end');
-          }
-        }
-      });
+  navToBag(){
+    this.router.navigate(['pages/bag'])
   }
 
 }

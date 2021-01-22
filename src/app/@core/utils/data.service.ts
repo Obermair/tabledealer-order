@@ -18,13 +18,14 @@ interface CardSettings {
   providedIn: 'root'
 })
 export class DataService {
-  public veranstalterId: string = null;
+  public veranstalterId: string = '1';
   public veranstalter: Veranstalter;  
   public arikelList: Array<Artikel>;
   public commonStatusCardsSet: CardSettings[];
   public bestellartikel: Bestellungartikel[] = []; 
   public currentBestellung: Bestellung = {
-    tischnr: 13
+    tischnr: 13,
+    name: 'Huber'
   };
   public sum: number = 0;
 
@@ -39,8 +40,8 @@ export class DataService {
  
   constructor(private http: HttpService, private toastrService: NbToastrService) { }
 
-  setVeranstalter(id){
-    this.http.findVeranstalterById(id).subscribe((data) =>{
+  setVeranstalter(){
+    this.http.findVeranstalterById(this.veranstalterId).subscribe((data) =>{
       this.veranstalter = data;
     })
   }
@@ -48,7 +49,6 @@ export class DataService {
   loadArtikelByVeranstalter(){
     this.http.findArtikelByVeranstalter(this.veranstalterId).subscribe((data) =>{
       this.arikelList = data;
-      console.log(this.arikelList);
     })
   }
 
@@ -70,7 +70,6 @@ export class DataService {
 
     if(a != -1){
       this.bestellartikel[a].menge++;
-      
     } else{
       let bestellartikel: Bestellungartikel = {
         artikel: article,
@@ -79,9 +78,8 @@ export class DataService {
       };
 
       this.bestellartikel.push(bestellartikel);
-      
-    } 
-    
+    }
+
     this.calcSum();     
   }
 
@@ -96,5 +94,24 @@ export class DataService {
         this.bestellartikel[a].menge--;
       }
     }  
+  }
+
+  authenticateForFree(){
+    let authRequest = new Promise<void>((resolve, reject) => {
+      this.http.getToken(this.defaultKellner).subscribe(result => {
+        if ( result ) {
+          if(result == "user not found"){
+            //this.data.showToast('top-right', 'danger', 'User nicht registriert');
+          }
+          else{
+            localStorage.setItem('token', result);
+            this.showToast('primary', 'Automatisch eingeloggt', 'bottom-right')
+          }
+        }
+        resolve();
+      });
+    });
+
+    return authRequest;
   }
 }
