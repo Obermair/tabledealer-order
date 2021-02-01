@@ -37,6 +37,7 @@ export class BagComponent implements OnInit {
   thirdSubmit() {
     let currentDate = new Date();
     this.data.currentBestellung.bestellzeit = formatDate(currentDate, 'yyyy-MM-dd HH:mm', this.locale);
+    this.data.currentBestellung.printed = false;
 
     this.http.postBestellung(this.data.currentBestellung).subscribe((bestellung)=>{
       this.data.currentBestellung = bestellung;
@@ -48,7 +49,6 @@ export class BagComponent implements OnInit {
         });
       });
     })
-
   }
 
   wait(ms){
