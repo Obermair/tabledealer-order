@@ -7,12 +7,15 @@ import { map, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from 'app/@core/utils/data.service';
+import { getOutputFileNames } from 'typescript';
 @Component({
   selector: 'ngx-header',
   styleUrls: ['./header.component.scss'],
   templateUrl: './header.component.html',
 })
 export class HeaderComponent implements OnInit, OnDestroy {
+
+  iconstatus = "moon-outline";
 
   private destroy$: Subject<void> = new Subject<void>();
   userPictureOnly: boolean = false;
@@ -102,8 +105,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   navBag() {
     this.router.navigate(['pages/bag'])
   }
+  
   toggleTheme() {
+ 
     this.currentTheme = this.currentTheme === 'origin' ? 'dark' : 'origin';
     this.themeService.changeTheme(this.currentTheme);
+    this.iconstatus = this.iconstatus === 'moon-outline' ? 'sun-outline' : 'moon-outline';
   }
 }
