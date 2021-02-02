@@ -3,14 +3,16 @@
     <a (click)="toggleSidebar()" href="#" class="sidebar-toggle">
       <nb-icon icon="menu-2-outline"></nb-icon>
     </a>
-    <img (click)="navigateHome()" src="../../../../assets/images/ozapft-logo1.svg" height="50vh">
+    <img (click)="navigateHome()" src="../../../../assets/images/logo_new_plain@4x.png" height="40vh"  class="ml-2">
     <!--<a class="logo" href="#" (click)="navigateHome()">O'ZAPFT</a>-->
   </div>
   <!--<nb-select [selected]="currentTheme" (selectedChange)="changeTheme($event)" status="primary">
     <nb-option *ngFor="let theme of themes" [value]="theme.value"> {{ theme.name }}</nb-option>
   </nb-select> -->
 </div>
+
 <div class="header-container">
+  <button nbButton (click)="toggleTheme()">Toggle Theme</button>
   <nb-actions size="small">
         <nb-action class="control-item" icon="shopping-bag-outline" [badgeText]="data.bestellartikel.length" badgeStatus="danger" badgePosition="bottom right" badge-text-font-weight="1000" (click)="navBag()"></nb-action>
   </nb-actions>
