@@ -43,10 +43,19 @@ export class BagComponent implements OnInit {
       this.data.currentBestellung = bestellung;
 
       this.baLoop().then(() => {
-        this.wait(1000)
-        this.http.printBestellung(bestellung.id).subscribe(data => {
-          this.resetStepper();
+        this.wait(1000);
+
+        this.http.checkPrinterUrl(this.data.veranstalter.printerUrl).subscribe((response) => {
+          this.http.printBestellung(bestellung.id).subscribe(data => {
+            this.resetStepper();
+            this.data.showToast('success', 'Bestellung wurde erfolgreich abgeschickt.', 'bottom-right')
+          });
+        },
+        (error) => {                  
+          this.data.showToast('danger', 'Drucken fehlgeschlagen. Bitte gib einem Kellner Bescheid. DANKE.', 'bottom-right')
         });
+
+
       });
     })
   }

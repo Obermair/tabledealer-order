@@ -56,6 +56,9 @@ export class HttpService {
     return this.http.post(this.SERVER_URL + '/api/kellner/jwt', kellner, {responseType: 'text'});
   }
 
+  checkPrinterUrl(url: string) {
+    return this.http.get(url, {responseType: 'text'});
+  }
   
   postBestellung(bestellung: Bestellung): Observable<Bestellung>{
     let token = localStorage.getItem('token');
