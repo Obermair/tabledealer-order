@@ -106,8 +106,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.router.navigate(['pages/bag'])
   }
   
-  toggleTheme() {
- 
+  toggleTheme() { 
     this.currentTheme = this.currentTheme === 'origin' ? 'dark' : 'origin';
     this.themeService.changeTheme(this.currentTheme);
     this.iconstatus = this.iconstatus === 'moon-outline' ? 'sun-outline' : 'moon-outline';
