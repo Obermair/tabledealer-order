@@ -15,6 +15,8 @@
     "start": "ng serve",
     "build": "ng build",
     "build:prod": "npm run build -- --prod --aot",
+    "build:stats": "ng build --stats-json",
+    "analyze": "webpack-bundle-analyzer dist/stats.json",
     "test": "ng test",
     "test:coverage": "rimraf coverage && npm run test -- --code-coverage",
     "lint": "ng lint",
@@ -107,6 +109,8 @@
     "ts-node": "3.2.2",
     "tslint": "~6.1.0",
     "tslint-language-service": "^0.9.9",
-    "typescript": "3.9.7"
+    "typescript": "3.9.7",
+    "webpack-bundle-analyzer": "^4.4.0",
+    "webpack-cli": "^4.5.0"
   }
 }
