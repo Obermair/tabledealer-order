@@ -1,6 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DataService } from 'app/@core/utils/data.service';
+import { RouteStateService } from 'app/@core/utils/route-state.service';
+import { Subject } from 'rxjs';
+import { map, takeUntil } from 'rxjs/operators';
 
 import { MENU_ITEMS } from './pages-menu';
 
@@ -14,20 +17,15 @@ import { MENU_ITEMS } from './pages-menu';
     </ngx-one-column-layout>
   `,
 })
-export class PagesComponent {
+export class PagesComponent implements OnInit{
 
   menu = MENU_ITEMS;
+  private destroy = new Subject<void>();
 
-  constructor(private data: DataService, private route: ActivatedRoute){
-    if(this.data.veranstalterId == null){
-      this.data.veranstalterId = this.route.snapshot.queryParamMap.get('veranstalter');
+  constructor(private routeStateService: RouteStateService, private route: ActivatedRoute){
+  }
 
-      if(this.route.snapshot.queryParamMap.get('veranstalter') == null){
-        this.data.paramInit = false;
-      }
-      else{
-        this.data.paramInit = true;
-      }
-    }
+  ngOnInit(): void {
+    this.routeStateService.pathParam.next(this.route.snapshot.queryParamMap.get('veranstalter'))
   }
 }

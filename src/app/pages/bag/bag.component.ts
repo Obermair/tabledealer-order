@@ -74,7 +74,6 @@ export class BagComponent implements OnInit {
         ba.bestellung = this.data.currentBestellung;
         this.http.postBestellungartikel(ba).subscribe((result)=>{
         });
-        console.log(ba, index, array.length)
 
         if (index === array.length -1) resolve();
       })
@@ -110,10 +109,8 @@ export class BagComponent implements OnInit {
   getPrice(){
     let sum = 0; 
     this.data.bestellartikel.forEach(function (value) {
-      console.log(value.artikel.preis);
       sum = sum + value.artikel.preis;
     });
-    console.log(sum);
     return sum;
   }
 

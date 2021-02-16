@@ -6,6 +6,7 @@ import { NbToastrService, NbComponentStatus } from '@nebular/theme';
 import { DataService } from "app/@core/utils/data.service";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Params, Router } from "@angular/router";
+import { RouteStateService } from "app/@core/utils/route-state.service";
 interface CardSettings {
   title: string;
   desc: string;
@@ -104,6 +105,7 @@ export class DashboardComponent implements OnDestroy {
   };
 
   constructor(private themeService: NbThemeService, private http: HttpService, 
+    private routeStateService: RouteStateService,
     public data: DataService, private route: ActivatedRoute, private router: Router) {
     
       this.themeService.getJsTheme()
@@ -112,13 +114,19 @@ export class DashboardComponent implements OnDestroy {
           this.statusCards = this.statusCardsByThemes[theme.name];
       });
 
-
+      this.routeStateService.pathParam.next(this.route.snapshot.queryParamMap.get('veranstalter'))
+    
       if(this.data.paramInit){
-        this.data.paramInit = true;  
-        this.data.authenticateForFree().then(() => {
+        if(localStorage.getItem('token')){
           this.data.setVeranstalter();
           this.data.loadArtikelByVeranstalter();
-        });
+        }
+        else{
+          this.data.authenticateForFree().then(() => {    
+            this.data.setVeranstalter();
+            this.data.loadArtikelByVeranstalter();
+          });
+        }
       }
   }
 
