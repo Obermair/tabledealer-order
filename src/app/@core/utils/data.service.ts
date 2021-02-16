@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
 import { Artikel } from '../models/artikel';
 import { Bestellungartikel } from '../models/bestellartikel';
@@ -28,8 +29,9 @@ export class DataService {
     name: 'Huber'
   };
   public sum: number = 0;
-
-  public paramInit = false;
+  public loginNeeded = false;
+  public loginCounter = 0;
+  public paramInit = true;
 
   public defaultKellner: Kellner = {
     id: 1,
@@ -38,12 +40,29 @@ export class DataService {
     passwort: 'passme'
   };
  
-  constructor(private http: HttpService, private toastrService: NbToastrService) { }
+  constructor(private http: HttpService, private toastrService: NbToastrService,  public router: Router) { }
 
   setVeranstalter(){
     this.http.findVeranstalterById(this.veranstalterId).subscribe((data) =>{
       this.veranstalter = data;
     })
+  }
+
+  checkVeranstalterValid(){
+    let requestCheck = new Promise<void>((resolve, reject) => {
+      this.http.findVeranstalterById(this.veranstalterId).subscribe((data) =>{
+        this.veranstalter = data;
+        if(this.veranstalter.selfCheckout == true){
+          this.loginNeeded = true;
+        }
+        else{
+          this.loginNeeded = false;
+        }
+        resolve();
+      })
+    });
+
+    return requestCheck;
   }
 
   loadArtikelByVeranstalter(){
@@ -59,7 +78,6 @@ export class DataService {
   calcSum(){
     let sum = 0;
     this.bestellartikel.forEach(function (value) {
-      console.log(value.artikel.preis);
        sum = sum + value.artikel.preis * value.menge;
     });
     this.sum = sum;
@@ -100,13 +118,9 @@ export class DataService {
     let authRequest = new Promise<void>((resolve, reject) => {
       this.http.getToken(this.defaultKellner).subscribe(data => {
         localStorage.setItem('token', data.token);
-        localStorage.setItem('veranstalter_id', data.id.toString());
-        
-        this.showToast('primary', 'Automatisch eingeloggt.', 'bottom-end');
         resolve();
       },
       (err: Error) => {
-        this.showToast('danger', 'Automatisches Login felgeschlagen. Bitte sag einen Kellner Bescheid. DANKE.', 'bottom-end');
       });
     });
 

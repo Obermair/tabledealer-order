@@ -1,0 +1,60 @@
+<nb-layout *ngIf="data.paramInit">
+    <nb-layout-column>
+    <div class="d-flex flex-column justify-content-center login-container">
+        <nb-card>
+            <nb-card-body class="d-flex flex-column align-items-center">
+
+                <h1 id="title">Login</h1>
+                <p class="sub-title">Log dich hier bitte mit deiner Email und deinem Passwort ein.</p>
+
+                <label class="label" for="input-email">Email Addresse:</label>
+                <input nbInput
+                    fullWidth
+                    name="email"
+                    id="input-email"
+                    pattern=".+@.+\..+"
+                    placeholder="Email Addresse"
+                    fieldSize="large"
+                    [(ngModel)]="email"
+                    class="text-center mb-4"
+                    autofocus>
+
+                <!--
+                <ng-container>
+                    <p class="caption status-danger">
+                        Email is required!
+                    </p>
+                </ng-container>
+                -->
+
+                <span class="label-with-link">
+                <label class="label" for="input-password">Passwort:</label>
+                </span>
+                <input nbInput
+                    fullWidth
+                    name="password"
+                    type="password"
+                    [(ngModel)]="password"
+                    id="input-password"
+                    placeholder="Passwort"
+                    class="text-center mb-4"
+                    fieldSize="large">
+
+
+                <button nbButton
+                        (click)="authenticate()"
+                        fullWidth
+                        status="primary"
+                        size="large">
+                    Log In
+                </button>
+            </nb-card-body>
+            </nb-card>
+        </div>
+    </nb-layout-column>
+</nb-layout>
+<nb-layout *ngIf="!data.paramInit" windowMode>
+    <nb-layout-column>
+      <p>Kein Veranstalter angegeben. Das ist eine falsche URL.</p>
+    </nb-layout-column>
+  </nb-layout>
