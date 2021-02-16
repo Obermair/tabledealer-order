@@ -51,11 +51,10 @@ export class BagComponent implements OnInit {
             this.data.showToast('success', 'Bestellung wurde erfolgreich abgeschickt.', 'bottom-right')
           });
         },
-        (error) => {                  
+        (error) => {        
+          this.resetStepper();          
           this.data.showToast('danger', 'Drucken fehlgeschlagen. Bitte gib einem Kellner Bescheid. DANKE.', 'bottom-right')
         });
-
-
       });
     })
   }

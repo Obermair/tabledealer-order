@@ -135,5 +135,4 @@ export class DashboardComponent implements OnDestroy {
   navToBag(){
     this.router.navigate(['pages/bag'])
   }
-
 }

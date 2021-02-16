@@ -8,6 +8,7 @@ import { Veranstalter } from "../models/veranstalter";
 import { Bestellung } from "../models/bestellung";
 import { Artikel } from "../models/artikel";
 import { Bestellungartikel } from "../models/bestellartikel";
+import { AuthDTO } from "../models/dto/auth";
 
 @Injectable({
   providedIn: "root",
@@ -52,8 +53,8 @@ export class HttpService {
     }
   }
 
-  getToken(kellner: Kellner): Observable<string>{
-    return this.http.post(this.SERVER_URL + '/api/kellner/jwt', kellner, {responseType: 'text'});
+  getToken(kellner: Kellner): Observable<AuthDTO>{
+    return this.http.post<AuthDTO>(this.SERVER_URL + '/api/kellner/jwt', kellner);
   }
 
   checkPrinterUrl(url: string) {

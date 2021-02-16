@@ -18,7 +18,7 @@ interface CardSettings {
   providedIn: 'root'
 })
 export class DataService {
-  public veranstalterId: string = '1';
+  public veranstalterId: string;
   public veranstalter: Veranstalter;  
   public arikelList: Array<Artikel>;
   public commonStatusCardsSet: CardSettings[];
@@ -51,8 +51,6 @@ export class DataService {
       this.arikelList = data;
     })
   }
-
-
 
   showToast(status, text, position) {
     this.toastrService.show('', text, { position, status });
@@ -100,17 +98,15 @@ export class DataService {
 
   authenticateForFree(){
     let authRequest = new Promise<void>((resolve, reject) => {
-      this.http.getToken(this.defaultKellner).subscribe(result => {
-        if ( result ) {
-          if(result == "user not found"){
-            //this.data.showToast('top-right', 'danger', 'User nicht registriert');
-          }
-          else{
-            localStorage.setItem('token', result);
-            this.showToast('primary', 'Automatisch eingeloggt', 'bottom-right')
-          }
-        }
+      this.http.getToken(this.defaultKellner).subscribe(data => {
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('veranstalter_id', data.id.toString());
+        
+        this.showToast('primary', 'Automatisch eingeloggt.', 'bottom-end');
         resolve();
+      },
+      (err: Error) => {
+        this.showToast('danger', 'Automatisches Login felgeschlagen. Bitte sag einen Kellner Bescheid. DANKE.', 'bottom-end');
       });
     });
 
