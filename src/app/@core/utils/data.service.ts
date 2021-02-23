@@ -7,6 +7,7 @@ import { Bestellung } from '../models/bestellung';
 import { Kellner } from '../models/kellner';
 import { Veranstalter } from '../models/veranstalter';
 import { HttpService } from './http.service';
+import { webSocket, WebSocketSubject } from 'rxjs/webSocket'; 
 
 interface CardSettings {
   title: string;
@@ -33,13 +34,18 @@ export class DataService {
   public loginCounter = 0;
   public paramInit = true;
 
+  username = Date.now();
+  connection: WebSocketSubject<any>;
+
   public defaultKellner: Kellner = {
     id: 1,
     email: 'example@mail.com',
     name: 'Huber',
     passwort: 'passme'
   };
- 
+
+  WEBSOCKET_URL = "wss://api.o-zapft.at/live/";
+
   constructor(private http: HttpService, private toastrService: NbToastrService,  public router: Router) { }
 
   setVeranstalter(){
@@ -125,5 +131,28 @@ export class DataService {
     });
 
     return authRequest;
+  }
+
+  connect(): void {
+    this.connection = webSocket({
+      url: this.WEBSOCKET_URL + this.username,
+      deserializer: msg => msg.data
+    });
+    this.connection.subscribe((value: String) => {
+      if(value.includes("block")){
+        window.location.reload();
+      }
+    });
+  }
+
+  send(message: string): void {
+    this.connection.next(message);
+  }
+
+  disconnect(): void {
+    if (this.connection) {
+      this.connection.complete();
+      this.connection = null;
+    }
   }
 }

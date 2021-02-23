@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
   constructor(private routeStateService: RouteStateService, private data: DataService, private route: ActivatedRoute, public router: Router){
 
     this.routeStateService.pathParam.subscribe((res: number)=> {
-    
+
       if(res != null){
         let routeId = res.toString();
 

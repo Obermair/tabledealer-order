@@ -24,6 +24,12 @@ export class BagComponent implements OnInit {
   }
 
   ngOnInit() {
+    if(!localStorage.getItem('token')){
+      this.data.authenticateForFree().then(() => {  
+        this.data.setVeranstalter();
+      });
+    }
+
     this.secondForm = this.fb.group({
       secondNr: ['', Validators.required],
       secondName: ['', Validators.required],
@@ -48,11 +54,13 @@ export class BagComponent implements OnInit {
         this.http.checkPrinterUrl(this.data.veranstalter.printerUrl).subscribe((response) => {
           this.http.printBestellung(bestellung.id).subscribe(data => {
             this.resetStepper();
+            this.data.send("created")
             this.data.showToast('success', 'Bestellung wurde erfolgreich abgeschickt.', 'bottom-right')
           });
         },
         (error) => {        
-          this.resetStepper();          
+          this.resetStepper();     
+          this.data.send("created")    
           this.data.showToast('danger', 'Drucken fehlgeschlagen. Bitte gib einem Kellner Bescheid. DANKE.', 'bottom-right')
         });
       });

@@ -3,5 +3,5 @@ export interface Bestellung {
     bestellzeit?: string;
     name?: string;
     printed?: Boolean;
-    tischnr: number;
+    tischnr?: number;
 }
