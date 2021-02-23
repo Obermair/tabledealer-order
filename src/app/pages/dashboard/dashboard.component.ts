@@ -117,12 +117,15 @@ export class DashboardComponent implements OnDestroy {
       this.routeStateService.pathParam.next(this.route.snapshot.queryParamMap.get('veranstalter'))
     
       if(this.data.paramInit){
+        
         if(localStorage.getItem('token')){
+          this.data.connect();
           this.data.setVeranstalter();
           this.data.loadArtikelByVeranstalter();
         }
         else{
-          this.data.authenticateForFree().then(() => {    
+          this.data.authenticateForFree().then(() => {  
+            this.data.connect();
             this.data.setVeranstalter();
             this.data.loadArtikelByVeranstalter();
           });
