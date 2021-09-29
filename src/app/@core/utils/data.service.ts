@@ -43,8 +43,8 @@ export class DataService {
     name: 'Huber',
     passwort: 'passme'
   };
-
-  WEBSOCKET_URL = "wss://api.o-zapft.at/live/";
+ 
+  WEBSOCKET_URL = "wss://legacy-api.table-dealer.com/live/";
 
   constructor(private http: HttpService, private toastrService: NbToastrService,  public router: Router) { }
 
