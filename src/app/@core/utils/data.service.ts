@@ -44,7 +44,7 @@ export class DataService {
     passwort: 'passme'
   };
  
-  WEBSOCKET_URL = "wss://legacy-api.table-dealer.com/live/";
+  WEBSOCKET_URL = "wss://legacy-api.tabledealer.at/live/";
 
   constructor(private http: HttpService, private toastrService: NbToastrService,  public router: Router) { }
 
@@ -130,6 +130,7 @@ export class DataService {
       });
     });
 
+     
     return authRequest;
   }
 

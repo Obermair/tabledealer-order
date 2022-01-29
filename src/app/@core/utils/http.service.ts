@@ -15,7 +15,7 @@ import { AuthDTO } from "../models/dto/auth";
 })
 export class HttpService {
 
-  SERVER_URL = "https://legacy-api.table-dealer.com";
+  SERVER_URL = "https://legacy-api.tabledealer.at";
   token;
   headers;
   kellner;
