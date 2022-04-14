@@ -1,60 +1,79 @@
+
 <nb-layout *ngIf="data.paramInit">
     <nb-layout-column>
-    <div class="d-flex flex-column justify-content-center login-container">
-        <nb-card>
-            <nb-card-body class="d-flex flex-column align-items-center">
+      <div class="contact-wrapper">
+        <div>
+            <div class="row justify-content-center">
+              <div class="col-lg-7 col-xl-6">
+                <div class="brand text-center pt--20">
+                  <a href="">
+                    <img class="tabledealer-logo" src="../../assets/images/tabledealer-header.svg" alt="">
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="row justify-content-center">
+              <div class="col-lg-7 col-xl-6">
+                <div class="main-block text-center">
+                  <div class="omega-form">
+                    <form action="./">
+                      <div class="form-title mb--35">
+                        <h2 class="title">Anmeldung</h2>
+                        <p>Geben Sie Ihre Kontodaten unten ein</p>
+                      </div>
+                      <div class="form-group">
+                        <input name="email"
+                        id="input-email"
+                        pattern=".+@.+\..+" 
+                        [(ngModel)]="email"
+                        autofocus
+                        class="form-control" type="email"   placeholder="Email">
+                      </div>
+                      <div class="form-group forget-block">
+                        <input
+                        [(ngModel)]="password"
+                        id="input-password"
+                         class="form-control" 
+                         name="password"
+                         type="password" placeholder="Passwort"> 
+                      </div>
+  
+                      <div class="form-group button-block">
+                        <button class="form-btn" (click)="authenticate()">Anmelden</button>
+                        <p class="sign-up-text">Sie haben noch kein Konto? <a href="https://tabledealer.at/contact-2.html">Call us</a></p>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+    </div>
+  </div>
+</nb-layout-column>
+</nb-layout>
 
-                <h1 id="title">Login</h1>
-                <p class="sub-title">Log dich hier bitte mit deiner Email und deinem Passwort ein.</p>
-
-                <label class="label" for="input-email">Email Addresse:</label>
-                <input nbInput
-                    fullWidth
-                    name="email"
-                    id="input-email"
-                    pattern=".+@.+\..+"
-                    placeholder="Email Addresse"
-                    fieldSize="large"
-                    [(ngModel)]="email"
-                    class="text-center mb-4"
-                    autofocus>
-
-                <!--
-                <ng-container>
-                    <p class="caption status-danger">
-                        Email is required!
-                    </p>
-                </ng-container>
-                -->
-
-                <span class="label-with-link">
-                <label class="label" for="input-password">Passwort:</label>
-                </span>
-                <input nbInput
-                    fullWidth
-                    name="password"
-                    type="password"
-                    [(ngModel)]="password"
-                    id="input-password"
-                    placeholder="Passwort"
-                    class="text-center mb-4"
-                    fieldSize="large">
-
-
-                <button nbButton
-                        (click)="authenticate()"
-                        fullWidth
-                        status="primary"
-                        size="large">
-                    Log In
-                </button>
-            </nb-card-body>
-            </nb-card>
+<nb-layout *ngIf="!data.paramInit">
+        <nb-layout-column>
+            <div class="contact-wrapper">
+            <div>
+                <div class="row justify-content-center">
+                    <div class="col-lg-7 col-xl-6">
+                    <div class="brand text-center pt--20">
+                        <a href="">
+                        <img class="tabledealer-logo" src="../../assets/images/tabledealer-header.svg" alt="">
+                        </a>
+                    </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-lg-7 col-xl-6">
+                    <div class="main-block text-center mt-4">
+                        <p>Kein Veranstalter angegeben. Das ist eine falsche URL.</p>
+                    </div>
+                    </div>
+                </div>
+        </div>
         </div>
     </nb-layout-column>
 </nb-layout>
-<nb-layout *ngIf="!data.paramInit" windowMode>
-    <nb-layout-column>
-      <p>Kein Veranstalter angegeben. Das ist eine falsche URL.</p>
-    </nb-layout-column>
-  </nb-layout>
+ 
