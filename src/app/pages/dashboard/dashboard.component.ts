@@ -22,98 +22,15 @@ interface CardSettings {
 export class DashboardComponent implements OnDestroy {
   
   private alive = true;
-
-  solarValue: number;
-  lightCard: CardSettings = {
-    title: 'Hamburger',
-    desc: 'mit Pommes',
-    iconClass: '',
-    type: 'primary',
-  };
-  rollerShadesCard: CardSettings = {
-    title: 'Pizza',
-    desc: 'mit Salami',
-    iconClass: 'nb-roller-shades',
-    type: 'success',
-  };
-  wirelessAudioCard: CardSettings = {
-    title: 'Bier 0.5l',
-    desc: 'Freistädter',
-    iconClass: 'nb-audio',
-    type: 'info',
-  };
-  coffeeMakerCard: CardSettings = {
-    title: 'Kaffee',
-    desc: 'Espresso',
-    iconClass: 'nb-coffee-maker',
-    type: 'warning',
-  };
-  spritzerCard: CardSettings = {
-    title: 'Spritzer 0.3l',
-    desc: 'Mit Soda',
-    iconClass: 'nb-coffee-maker',
-    type: 'warning',
-  };
-
-  colaCard: CardSettings = {
-    title: 'Cola 0.3l',
-    desc: '',
-    iconClass: 'nb-coffee-maker',
-    type: 'info',
-  };
-
   statusCards: string;
 
-  commonStatusCardsSet: CardSettings[] = [
-    this.lightCard,
-    this.rollerShadesCard,
-    this.wirelessAudioCard,
-    this.coffeeMakerCard,
-    this.spritzerCard,
-    this.colaCard,
-  ];
 
-  statusCardsByThemes: {
-    default: CardSettings[];
-    cosmic: CardSettings[];
-    corporate: CardSettings[];
-    dark: CardSettings[];
-    origin : CardSettings[];
-  } = {
-    default: this.commonStatusCardsSet,
-    cosmic: this.commonStatusCardsSet,
-    corporate: [
-      {
-        ...this.lightCard,
-        type: 'warning',
-      },
-      {
-        ...this.rollerShadesCard,
-        type: 'primary',
-      },
-      {
-        ...this.wirelessAudioCard,
-        type: 'danger',
-      },
-      {
-        ...this.coffeeMakerCard,
-        type: 'info',
-      },
-    ],
-    dark: this.commonStatusCardsSet,
-    origin: this.commonStatusCardsSet,
-  };
-
+ 
   constructor(private themeService: NbThemeService, private http: HttpService, 
     private routeStateService: RouteStateService,
     public data: DataService, private route: ActivatedRoute, private router: Router) {
     
-      this.themeService.getJsTheme()
-        .pipe(takeWhile(() => this.alive))
-        .subscribe(theme => {
-          this.statusCards = this.statusCardsByThemes[theme.name];
-      });
-
+    
       this.routeStateService.pathParam.next(this.route.snapshot.queryParamMap.get('veranstalter'))
     
       if(this.data.paramInit){

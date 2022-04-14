@@ -14,21 +14,6 @@
                   
                   <p class="mt-2">{{ ba.menge }}x {{ ba.artikel.name }}</p>
                   <div class="actions">
-                  <!--<nb-form-field class="mr-1" [hidden]="!ba.inEdit">
-                    <nb-icon (click)="decAmount(ba)" nbPrefix icon="minus-outline" pack="eva"></nb-icon>
-                    <input class="amount" [ngModelOptions]="{standalone: true}" [(ngModel)]="ba.menge" nbInput>
-                    <nb-icon (click)="incAmount(ba)" nbSuffix icon="plus-outline" pack="eva"></nb-icon>
-                  </nb-form-field>
-
-                  <ng-container *ngIf="ba.inEdit; else viewMode">
-                    <button nbButton status="success" ghost size="tiny" (click)="onSave(ba)">
-                      <nb-icon icon="save-outline"></nb-icon>
-                    </button>
-                  </ng-container>
-
-                  <button nbButton status="info" ghost size="tiny" (click)="onEdit(ba)" >
-                    <nb-icon icon="edit-2-outline"></nb-icon>
-                  </button> -->
 
                   <nb-form-field class="mr-1">
                     <nb-icon (click)="decAmount(ba)" nbPrefix icon="minus-outline" pack="eva"></nb-icon>

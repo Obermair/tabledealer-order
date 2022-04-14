@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 
 import { PagesComponent } from './pages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { NotFoundComponent } from './miscellaneous/not-found/not-found.component';
 import { BagComponent } from './bag/bag.component';
 import { HelpComponent } from './help/help.component'
 
@@ -24,18 +23,13 @@ const routes: Routes = [{
       component: HelpComponent,
     },
     {
-      path: 'miscellaneous',
-      loadChildren: () => import('./miscellaneous/miscellaneous.module')
-        .then(m => m.MiscellaneousModule),
-    },
-    {
       path: '',
       redirectTo: 'dashboard',
       pathMatch: 'full',
     },
     {
       path: '**',
-      component: NotFoundComponent,
+      component: DashboardComponent,
     },
   ],
 }];

@@ -5,7 +5,7 @@ import { ThemeModule } from '../@theme/theme.module';
 import { PagesComponent } from './pages.component';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { PagesRoutingModule } from './pages-routing.module';
-import { MiscellaneousModule } from './miscellaneous/miscellaneous.module';
+ 
 import { BagModule } from './bag/bag.module';
 import { HelpModule } from './help/help.module';
 
@@ -15,7 +15,6 @@ import { HelpModule } from './help/help.module';
     ThemeModule,
     NbMenuModule,
     DashboardModule,
-    MiscellaneousModule,
     BagModule,
     HelpModule
   ],
