@@ -10,17 +10,19 @@ registerLocaleData(localeDe, 'de');
   styleUrls: ['./status-card.component.scss'],
   template: `
     <nb-card>
-      <div class="details">
-        <div class="title ml-2 h5">{{ title }}</div>
-        <div class="status ml-2 paragraph-2">{{ price | currency:'EUR':'symbol':'1.2-2':'de' }}</div>
-      </div>
-      <div>
-
-      <nb-form-field class="mr-4">
-        <nb-icon (click)="decAmount()" nbPrefix icon="minus-outline" pack="eva"></nb-icon>
-        <input class="amount" [(ngModel)]="amount" nbInput>
-        <nb-icon (click)="incAmount()" nbSuffix icon="plus-outline" pack="eva"></nb-icon>
-      </nb-form-field>
+      <div class="d-flex flex-column justify-content-center align-self-center w-100">
+        <div class="details mt-2 d-flex justify-content-center">
+          <div class="title ml-2 h5">{{ title }}</div>
+          <div class="status ml-2 paragraph-2">{{ price | currency:'EUR':'symbol':'1.2-2':'de' }}</div>
+        </div>
+        
+        <div class="mt-2 mb-4 d-flex justify-content-center">
+          <nb-form-field  >
+            <nb-icon (click)="decAmount()" nbPrefix icon="minus-outline" pack="eva"></nb-icon>
+            <input class="amount" [(ngModel)]="amount" nbInput>
+            <nb-icon (click)="incAmount()" nbSuffix icon="plus-outline" pack="eva"></nb-icon>
+          </nb-form-field>
+        </div>
       </div>
     </nb-card>
   `,
