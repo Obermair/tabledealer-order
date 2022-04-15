@@ -38,23 +38,18 @@ export class StatusCardComponent {
   }
 
   amount = 0;
-
   incAmount(){
     if(this.amount < 15) {
       this.data.pushBestellartikel(this.article);
-      this.data.showToast('success', this.article.name + " hinzugefügt.", 'bottom-end');
       this.amount += 1;
-    }
-    
+    }   
   }
 
   decAmount(){
     if(this.amount > 0) {
       this.data.popBestellartikel(this.article);
-      this.data.showToast('danger', this.article.name + " entfernt.", 'bottom-end');
       this.amount -= 1;
     }
   }
-
   
 }

@@ -26,13 +26,15 @@ export class DataService {
   public commonStatusCardsSet: CardSettings[];
   public bestellartikel: Bestellungartikel[] = []; 
   public currentBestellung: Bestellung = {
-    tischnr: 13,
-    name: 'Huber'
+    tischnr: null,
+    name: ""
   };
+
   public sum: number = 0;
   public loginNeeded = false;
   public loginCounter = 0;
   public paramInit = true;
+  public bestellArtikelSum = 0;
 
   username = Date.now();
   connection: WebSocketSubject<any>;
@@ -89,8 +91,19 @@ export class DataService {
     this.sum = sum;
   }
 
+  calcSumOfBestellArray(ba: Bestellungartikel[]){
+
+    let sum = 0;
+    ba.forEach(function (value) {
+       sum = sum + value.artikel.preis * value.menge;
+    });
+    
+    return sum;
+  }
+
   pushBestellartikel(article: Artikel){
     let a = this.bestellartikel.findIndex(item => item.artikel.name === article.name)
+    this.bestellArtikelSum++;
 
     if(a != -1){
       this.bestellartikel[a].menge++;
@@ -109,6 +122,7 @@ export class DataService {
 
   popBestellartikel(article: Artikel){
     let a = this.bestellartikel.findIndex(item => item.artikel.name === article.name)
+    this.bestellArtikelSum--;
 
     if(a != -1){
       if(this.bestellartikel[a].menge == 1){

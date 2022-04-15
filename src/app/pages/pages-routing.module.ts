@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 
 import { PagesComponent } from './pages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { BagComponent } from './bag/bag.component';
 import { HelpComponent } from './help/help.component'
 
 const routes: Routes = [{
@@ -13,10 +12,6 @@ const routes: Routes = [{
     {
       path: 'dashboard',
       component: DashboardComponent,
-    },
-    {
-      path: 'bag',
-      component: BagComponent,
     },
     {
       path: 'help',

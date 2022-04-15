@@ -4,7 +4,7 @@
       <nb-icon icon="menu-2-outline"></nb-icon>
     </a>
     <img (click)="navigateHome()" src="../../../../assets/images/tabledealer-header.svg" height="40vh"  class="ml-2">
-    <!--<a class="logo" href="#" (click)="navigateHome()">O'ZAPFT</a>-->
+     
   </div>
   <!--<nb-select [selected]="currentTheme" (selectedChange)="changeTheme($event)" status="primary">
     <nb-option *ngFor="let theme of themes" [value]="theme.value"> {{ theme.name }}</nb-option>
@@ -14,7 +14,7 @@
 <div class="header-container">
   <button nbButton (click)="toggleTheme()"ghost><nb-icon [icon]="iconstatus"></nb-icon></button>
   <nb-actions size="small">
-        <nb-action class="control-item" icon="shopping-bag-outline" [badgeText]="data.bestellartikel.length" badgeStatus="danger" badgePosition="bottom right" badge-text-font-weight="1000" (click)="navBag()"></nb-action>
+        <nb-action class="control-item" icon="shopping-bag-outline" [badgeText]="data.bestellArtikelSum" badgeStatus="danger" badgePosition="bottom right" badge-text-font-weight="1000"  ></nb-action>
   </nb-actions>
 </div>
 <!--

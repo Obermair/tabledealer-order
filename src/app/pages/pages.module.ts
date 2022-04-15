@@ -5,8 +5,6 @@ import { ThemeModule } from '../@theme/theme.module';
 import { PagesComponent } from './pages.component';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { PagesRoutingModule } from './pages-routing.module';
- 
-import { BagModule } from './bag/bag.module';
 import { HelpModule } from './help/help.module';
 
 @NgModule({
@@ -15,7 +13,6 @@ import { HelpModule } from './help/help.module';
     ThemeModule,
     NbMenuModule,
     DashboardModule,
-    BagModule,
     HelpModule
   ],
   declarations: [
