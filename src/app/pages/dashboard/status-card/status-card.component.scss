@@ -6,7 +6,6 @@
   nb-card {
     flex-direction: row;
     align-items: center;
-    height: 6rem;
     justify-content: space-between;
     overflow: visible;
 
@@ -16,7 +15,8 @@
     }
 
     nb-form-field{
-      width: 150px;
+      margin-left: 1rem;
+      margin-right: 1rem;
     }
     
     input{
@@ -72,6 +72,7 @@
     .details {
       display: flex;
       flex-direction: column;
+      text-align: center;
       justify-content: center;
       height: 100%;
       @include nb-ltr(padding, 0 0.5rem 0 0.75rem);

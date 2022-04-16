@@ -77,6 +77,7 @@ export class DashboardComponent {
     
           this.cashedItems = [...this.data.bestellartikel];
           this.cashedSum = this.data.sum;
+          this.data.bestellArtikelSum = 0;
           this.baLoop().then(() => {
             this.wait(1000);
     
@@ -102,6 +103,7 @@ export class DashboardComponent {
 
         this.cashedItems = [...this.data.bestellartikel];
         this.cashedSum = this.data.sum;
+        this.data.bestellArtikelSum = 0;
         this.baLoop().then(() => {
           this.wait(1000);
   

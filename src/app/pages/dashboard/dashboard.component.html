@@ -12,7 +12,7 @@
                 </div>
               </div>
             
-              <button *ngIf="data.bestellartikel.length == 0" disabled class="m-2" nbButton nbStepperNext>Noch keine Artikel hinzugefügt. <br> Wähle bitte Artikel aus der Artikelliste.</button>
+              <button *ngIf="data.bestellartikel.length == 0" disabled class="m-2" nbButton nbStepperNext>Wähle bitte Artikel <br> aus der Artikelliste.</button>
               <button *ngIf="data.bestellartikel.length > 0" class="m-2" nbButton nbStepperNext>Weiter</button>
             </form>
           </nb-step>
@@ -99,12 +99,12 @@
           </nb-step>
           <nb-step [stepControl]="thirdForm" [hidden]="true" label="Kassieren">
             <div class="step-container d-flex flex-column">
-              <h3>Bestellung abgeschickt</h3>
-              <button nbButton (click)="reloadComponent();">Neue Bestellung</button>
+              <h3>Bestellung abgeschickt.</h3>
+              <button nbButton status="primary" (click)="reloadComponent();">Neue Bestellung</button>
               <nb-list *ngIf="cashedItems.length > 0">
                 <nb-list-item class="list" *ngFor="let ba of cashedItems">
-                  <div class="d-flex flex-row w-100 justify-content-between">
-                    <div>
+                  <div class="d-flex flex-column w-100 justify-content-between">
+                    <div class="my-2">
                       <p class="mb-0"><b>{{ ba.menge }}x {{ ba.artikel.name }}</b></p>
                       <p class="mb-0">Einzelpreis: {{ ba.artikel.preis | currency:'EUR':'symbol':'1.2-2':'de' }}</p>
                       <p class="mb-0">Mengenpreis: {{ ba.artikel.preis*ba.menge | currency:'EUR':'symbol':'1.2-2':'de' }}</p>
