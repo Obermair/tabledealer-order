@@ -1,3 +1,4 @@
+
 <a name="6.0.0"></a>
 # [6.0.0](https://github.com/akveo/ngx-admin/compare/v5.0.0...v6.0.0) (2020-08-19)
 
