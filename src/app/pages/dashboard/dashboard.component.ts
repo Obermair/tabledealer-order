@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { RouteStateService } from "app/@core/utils/route-state.service";
 import { formatDate } from '@angular/common';
 import { Bestellungartikel } from 'app/@core/models/bestellartikel';
+import { Artikel } from "app/@core/models/artikel";
 
 
 @Component({
@@ -38,12 +39,14 @@ export class DashboardComponent {
       if(localStorage.getItem('token')){
         this.data.connect();
         this.data.setVeranstalter();
+        this.data.loadCategoriesByVeranstalter();
         this.data.loadArtikelByVeranstalter();
       }
       else{
         this.data.authenticateForFree().then(() => {  
           this.data.connect();
           this.data.setVeranstalter();
+          this.data.loadCategoriesByVeranstalter();
           this.data.loadArtikelByVeranstalter();
         });
       }
@@ -58,6 +61,18 @@ export class DashboardComponent {
   printSampleBestellung(){
     this.http.printBestellung(1).subscribe(data => {
     });
+  }
+
+  getArtikelByCategory(id: number){
+    let categoryArtikel: Artikel[] =  [];
+
+    this.data.arikelList.forEach((artikel: Artikel) =>{
+      if(artikel.kategorie.id == id){
+        categoryArtikel.push(artikel)
+      }
+    })
+
+    return categoryArtikel;
   }
 
   onSecondSubmit() {

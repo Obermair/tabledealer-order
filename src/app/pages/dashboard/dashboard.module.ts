@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { NbCardModule, NbIconModule, NbAlertModule, NbStepperModule, NbButtonModule, NbAccordionModule, NbInputModule, NbCheckboxModule, NbListModule, NbFormFieldModule } from '@nebular/theme';
+import { NbCardModule, NbIconModule, NbAlertModule, NbStepperModule, NbButtonModule, NbAccordionModule, NbInputModule, NbCheckboxModule, NbListModule, NbFormFieldModule, NbTabsetModule } from '@nebular/theme';
 
 import { ThemeModule } from '../../@theme/theme.module';
 import { DashboardComponent } from './dashboard.component';
@@ -26,7 +26,8 @@ import {LOCALE_ID} from '@angular/core';
     NbListModule,
     NbStepperModule,
     NbAlertModule,
-    NbFormFieldModule
+    NbFormFieldModule,
+    NbTabsetModule
   ],
   declarations: [
     DashboardComponent,

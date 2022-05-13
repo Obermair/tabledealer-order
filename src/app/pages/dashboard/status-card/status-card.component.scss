@@ -9,6 +9,13 @@
     justify-content: space-between;
     overflow: visible;
 
+    @include media-breakpoint-down(sm) {
+      nb-card {
+        margin-left: -25px;
+        margin-right: -25px;
+      }
+    }
+
     .icon-container {
       height: 100%;
       padding: 0.625rem;

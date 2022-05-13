@@ -9,6 +9,7 @@ import { Bestellung } from "../models/bestellung";
 import { Artikel } from "../models/artikel";
 import { Bestellungartikel } from "../models/bestellartikel";
 import { AuthDTO } from "../models/dto/auth";
+import { Kategorie } from "../models/kategorie";
 
 @Injectable({
   providedIn: "root",
@@ -76,6 +77,15 @@ export class HttpService {
       return this.http.post<Bestellungartikel>(this.SERVER_URL + '/api/bestellartikel', ba, { headers: headers });
     }
   }
+
+  findCategoriesByVeranstalter(id: string): Observable<Kategorie[]> {
+    let token = localStorage.getItem('token');
+
+    if ( token ) {
+      let headers = new HttpHeaders().set('Authorization', `Bearer ${token}`)
+      return this.http.get<Kategorie[]>(this.SERVER_URL + '/api/kategorie/byVeranstalter/' + id, { headers: headers });
+    }
+  } 
 
   printBestellung(id): Observable<Bestellung> {
     let token = localStorage.getItem('token');

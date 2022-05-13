@@ -8,6 +8,7 @@ import { Kellner } from '../models/kellner';
 import { Veranstalter } from '../models/veranstalter';
 import { HttpService } from './http.service';
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket'; 
+import { Kategorie } from '../models/kategorie';
 
 interface CardSettings {
   title: string;
@@ -23,7 +24,9 @@ export class DataService {
   public veranstalterId: string;
   public veranstalter: Veranstalter;  
   public arikelList: Array<Artikel>;
+  public categoryList: Array<Kategorie>;
   public commonStatusCardsSet: CardSettings[];
+  public articlesLoaded = false;
   public bestellartikel: Bestellungartikel[] = []; 
   public currentBestellung: Bestellung = {
     tischnr: null,
@@ -73,9 +76,16 @@ export class DataService {
     return requestCheck;
   }
 
+  loadCategoriesByVeranstalter(){
+    this.http.findCategoriesByVeranstalter(this.veranstalterId).subscribe((data) =>{
+      this.categoryList = data;
+    })
+  }
+
   loadArtikelByVeranstalter(){
     this.http.findArtikelByVeranstalter(this.veranstalterId).subscribe((data) =>{
       this.arikelList = data;
+      this.articlesLoaded = true;
     })
   }
 
