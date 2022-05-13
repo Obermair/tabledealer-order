@@ -27,6 +27,7 @@ export class DataService {
   public categoryList: Array<Kategorie>;
   public commonStatusCardsSet: CardSettings[];
   public articlesLoaded = false;
+  public categoriesLoaded = false;
   public bestellartikel: Bestellungartikel[] = []; 
   public currentBestellung: Bestellung = {
     tischnr: null,
@@ -79,6 +80,7 @@ export class DataService {
   loadCategoriesByVeranstalter(){
     this.http.findCategoriesByVeranstalter(this.veranstalterId).subscribe((data) =>{
       this.categoryList = data;
+      this.categoriesLoaded = true;
     })
   }
 

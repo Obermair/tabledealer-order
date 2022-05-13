@@ -5,9 +5,9 @@
         <nb-stepper #stepper>
           <nb-step label="Auswahl">
             <form class="step-container d-flex flex-column">
-                <nb-tabset fullWidth *ngIf="data.articlesLoaded">
+                <nb-tabset fullWidth *ngIf="data.categoriesLoaded">
                     <nb-tab *ngFor="let category of data.categoryList" [tabTitle]="category.name">
-                      <div class="row">
+                      <div class="row"  *ngIf="data.articlesLoaded">
                         <div class="col-xxxl-3 col-lg-6" *ngFor="let article of getArtikelByCategory(category.id)">
                           <ngx-status-card [article]="article" [title]="article.name" [desc]="article.kategorie.name" [price]="article.preis" [type]="primary">
                           </ngx-status-card>
