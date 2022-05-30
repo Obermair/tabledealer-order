@@ -111,7 +111,7 @@
           <nb-step [stepControl]="thirdForm" [hidden]="true" label="Kassieren">
             <div class="step-container d-flex flex-column">
               <h3>Bestellung abgeschickt.</h3>
-              <button nbButton status="primary" (click)="reloadComponent();">Neue Bestellung</button>
+              <button nbButton [disabled]="data.newOrderReady" status="primary" (click)="reloadComponent();">Neue Bestellung</button>
               <nb-list *ngIf="cashedItems.length > 0">
                 <nb-list-item class="list" *ngFor="let ba of cashedItems">
                   <div class="d-flex flex-column w-100 justify-content-between">

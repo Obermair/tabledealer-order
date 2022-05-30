@@ -28,6 +28,7 @@ export class DataService {
   public commonStatusCardsSet: CardSettings[];
   public articlesLoaded = false;
   public categoriesLoaded = false;
+  public newOrderReady = true;
   public bestellartikel: Bestellungartikel[] = []; 
   public currentBestellung: Bestellung = {
     tischnr: null,

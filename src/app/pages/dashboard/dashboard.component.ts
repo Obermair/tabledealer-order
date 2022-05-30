@@ -85,7 +85,8 @@ export class DashboardComponent {
     this.data.currentBestellung.printed = false;
 
     if(!localStorage.getItem('token')){
-      this.data.authenticateForFree().then(() => {  
+      this.data.authenticateForFree().then(() => {
+        this.data.newOrderReady = true;  
         
         this.http.postBestellung(this.data.currentBestellung).subscribe((bestellung)=>{
           this.data.currentBestellung = bestellung;
@@ -100,12 +101,14 @@ export class DashboardComponent {
               this.http.printBestellung(bestellung.id).subscribe(data => {
                 this.resetStepper();
                 this.data.send("created")
+                this.data.newOrderReady = false;
                 this.data.showToast('success', 'Bestellung wurde erfolgreich abgeschickt.', 'bottom-right')
               });
             },
             (error) => {        
               this.resetStepper();     
-              this.data.send("created")    
+              this.data.send("created")
+              this.data.newOrderReady = false;    
               this.data.showToast('danger', 'Drucken fehlgeschlagen. Bitte gib einem Kellner Bescheid. DANKE.', 'bottom-right')
             });
           });
@@ -113,6 +116,7 @@ export class DashboardComponent {
       });
     }
     else{
+      this.data.newOrderReady = true;  
       this.http.postBestellung(this.data.currentBestellung).subscribe((bestellung)=>{
         this.data.currentBestellung = bestellung;
 
@@ -125,13 +129,15 @@ export class DashboardComponent {
           this.http.checkPrinterUrl(this.data.veranstalter.printerUrl).subscribe((response) => {
             this.http.printBestellung(bestellung.id).subscribe(data => {
               this.resetStepper();
-              this.data.send("created")
-              this.data.showToast('success', 'Bestellung wurde erfolgreich abgeschickt.', 'bottom-right')
+              this.data.newOrderReady = false;
+              this.data.send("created");
+              this.data.showToast('success', 'Bestellung wurde erfolgreich abgeschickt.', 'bottom-right');
             });
           },
           (error) => {    
             this.resetStepper();     
-            this.data.send("created")    
+            this.data.send("created")
+            this.data.newOrderReady = false;    
             this.data.showToast('danger', 'Drucken fehlgeschlagen. Bitte gib einem Kellner Bescheid. DANKE.', 'bottom-right')
           });
         });
