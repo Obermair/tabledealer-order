@@ -21,7 +21,7 @@ export class HttpService {
   headers;
   kellner;
 
-  constructor(public http: HttpClient) {
+  constructor(public http: HttpClient, public dataService: DataService) {
   }
 
 
@@ -92,7 +92,13 @@ export class HttpService {
 
     if ( token ) {
       let headers = new HttpHeaders().set('Authorization', `Bearer ${token}`)
-      return this.http.get<Bestellung>(this.SERVER_URL + '/api/bestellung/print/' + id, { headers: headers });
+
+      if(this.dataService.veranstalter.speisenSinglePrint){
+        return this.http.get<Bestellung>(this.SERVER_URL + '/api/bestellung/printSpeisenSingle/' + id, { headers: headers }); 
+      }
+      else{
+        return this.http.get<Bestellung>(this.SERVER_URL + '/api/bestellung/print/' + id, { headers: headers });
+      }
     }
   }
 }

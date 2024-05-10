@@ -4,5 +4,6 @@ export interface Veranstalter {
     email: String;
     passwort: String;
     selfCheckout?: Boolean;
+    speisenSinglePrint?: Boolean;
     printerUrl?: string;
 }
